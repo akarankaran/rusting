@@ -1,17 +1,32 @@
 let x = 5;
 println!("{}", x);
 
-let name = "Alice";
-println!("{}", name);
-
 let pi = 3.14;
 println!("{}", pi);
 
-let is_raining = false;
-println!("{}", is_raining);
-
-let numbers = [1, 2, 3, 4, 5];
-println!("{:?}", numbers);
-
-let greeting = String::from("Hello, World!");
+let greeting = "Hello, World!";
 println!("{}", greeting);
+
+let is_rust_fun = true;
+println!("{}", is_rust_fun);
+
+let character = 'R';
+println!("{}", character);
+
+let array = [1, 2, 3, 4, 5];
+println!("{:?}", array);
+
+let tuple = (42, "Answer");
+println!("{:?}", tuple);
+
+let hex_value = 0x2A;
+println!("{}", hex_value);
+
+let big_number: u64 = 1_000_000_000;
+println!("{}", big_number);
+
+let decimal_value: f32 = 10.99;
+println!("{}", decimal_value);
+
+let unit = ();
+println!("{:?}", unit);
