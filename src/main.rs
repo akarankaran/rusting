@@ -1,77 +1,53 @@
-num1 = 7  
-num2 = 3  
+let a = 10;
+let b = 5;
 
-# Addition
-add_result = num1 + num2
+// Addition
+let sum1 = a + b;
+let sum2 = b + a;
+let sum3 = a + a;
 
-# Subtraction
-sub_result = num1 - num2
+// Subtraction
+let diff1 = a - b;
+let diff2 = b - a;
+let diff3 = a - a;
 
-# Multiplication
-mul_result = num1 * num2
+// Multiplication
+let prod1 = a * b;
+let prod2 = b * a;
+let prod3 = a * a;
 
-# Division
-if num2 != 0:
-    div_result = num1 / num2
-else:
-    div_result = "Division by zero"
+// Division
+let div1 = a / b;
+let div2 = b / a; // This will be 0 as b < a
+let div3 = a / 1; // Should return a
+let div4 = a / a; // Should return 1
 
-# Variations
-# Different integers
-num3 = 15  
-num4 = 4  
+// Mixed operations
+let mixed1 = (a + b) * a;
+let mixed2 = a - (b * 2);
+let mixed3 = (a / b) + b;
+let mixed4 = (a + b) - (a * b);
 
-add_result_2 = num3 + num4
-sub_result_2 = num3 - num4
-mul_result_2 = num3 * num4
-if num4 != 0:
-    div_result_2 = num3 / num4
-else:
-    div_result_2 = "Division by zero"
+// Negative values
+let c = -3;
+let d = -7;
+let neg_sum = c + d;
+let neg_diff = c - d;
+let neg_prod = c * d;
+let neg_div = c / d;
 
-# Using negative numbers
-num5 = -5  
-num6 = 2  
+// Large numbers
+let large1 = 10000;
+let large2 = 20000;
+let large_sum = large1 + large2;
+let large_diff = large1 - large2;
+let large_prod = large1 * large2;
+let large_div = large1 / large2;
 
-add_result_3 = num5 + num6
-sub_result_3 = num5 - num6
-mul_result_3 = num5 * num6
-if num6 != 0:
-    div_result_3 = num5 / num6
-else:
-    div_result_3 = "Division by zero"
+// Zero operations
+let zero_add = 0 + a;
+let zero_mul = 0 * a;
+let zero_sub = a - 0;
+let zero_div = a / 1;  // Division by 0 is not permitted
 
-# Using zero
-num7 = 0  
-
-add_result_4 = num7 + num2
-sub_result_4 = num7 - num2
-mul_result_4 = num7 * num2
-if num2 != 0:
-    div_result_4 = num7 / num2
-else:
-    div_result_4 = "Division by zero"
-
-# Large numbers
-num8 = 100000  
-num9 = 50000  
-
-add_result_5 = num8 + num9
-sub_result_5 = num8 - num9
-mul_result_5 = num8 * num9
-if num9 != 0:
-    div_result_5 = num8 / num9
-else:
-    div_result_5 = "Division by zero"
-
-# Small fractions as integers (effectively using int division)
-num10 = 1  
-num11 = 3  
-
-add_result_6 = num10 + num11
-sub_result_6 = num10 - num11
-mul_result_6 = num10 * num11
-if num11 != 0:
-    div_result_6 = num10 / num11  # This will give a float result
-else:
-    div_result_6 = "Division by zero"
+[sum1, sum2, sum3, diff1, diff2, diff3, prod1, prod2, prod3, div1, div2, div3, div4, mixed1, mixed2, mixed3, mixed4, neg_sum, neg_diff, neg_prod, neg_div, large_sum, large_diff, large_prod, large_div, zero_add, zero_mul, zero_sub, zero_div]
