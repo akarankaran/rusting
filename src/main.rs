@@ -1,16 +1,19 @@
 fn main() {
-    let float_values: [f32; 5] = [10.5, -20.7, 0.0, 100.9, -300.9];
+    println!("i8 max: {}", std::i8::MAX);
+    println!("i8 min: {}", std::i8::MIN);
+    
+    println!("i16 max: {}", std::i16::MAX);
+    println!("i16 min: {}", std::i16::MIN);
+    
+    println!("i32 max: {}", std::i32::MAX);
+    println!("i32 min: {}", std::i32::MIN);
+    
+    println!("i64 max: {}", std::i64::MAX);
+    println!("i64 min: {}", std::i64::MIN);
 
-    for &value in &float_values {
-        let int_value = value as i32;
-        println!("f32: {}, i32: {}", value, int_value);
-    }
+    println!("i128 max: {}", std::i128::MAX);
+    println!("i128 min: {}", std::i128::MIN);
 
-    // Additional variations of float values
-    let more_float_values: [f32; 5] = [f32::MAX, f32::MIN, 123456.789, -123456.789, 3.14159];
-
-    for &value in &more_float_values {
-        let int_value = value as i32;
-        println!("f32: {}, i32: {}", value, int_value);
-    }
+    println!("isize max: {}", std::isize::MAX);
+    println!("isize min: {}", std::isize::MIN);
 }
