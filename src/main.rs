@@ -1,28 +1,51 @@
 fn main() {
-    let mut a = 5;
-    let mut b = 10;
+    let number: i32 = 5;
 
-    a = a + b;
-    b = a - b;
-    a = a - b;
+    if number > 0 {
+        println!("Positive");
+    } else if number < 0 {
+        println!("Negative");
+    } else {
+        println!("Zero");
+    }
 
-    println!("a: {}, b: {}", a, b);
+    let numbers = [-10, 0, 15, -3, 2];
 
-    let mut x = 15.5;
-    let mut y = 20.8;
+    for &num in &numbers {
+        if num > 0 {
+            println!("{} is Positive", num);
+        } else if num < 0 {
+            println!("{} is Negative", num);
+        } else {
+            println!("{} is Zero", num);
+        }
+    }
 
-    x = x + y;
-    y = x - y;
-    x = x - y;
+    let num = -1;
 
-    println!("x: {}, y: {}", x, y);
+    match num {
+        n if n > 0 => println!("Positive"),
+        n if n < 0 => println!("Negative"),
+        _ => println!("Zero"),
+    }
 
-    let mut p = 'A';
-    let mut q = 'Z';
+    let inputs = vec![3, -1, 0, 45, -22];
 
-    p = (p as u8) ^ (q as u8) as char;
-    q = (p as u8) ^ (q as u8) as char;
-    p = (p as u8) ^ (q as u8) as char;
+    for &input in &inputs {
+        if input > 0 {
+            println!("{} is Positive", input);
+        } else if input < 0 {
+            println!("{} is Negative", input);
+        } else {
+            println!("{} is Zero", input);
+        }
+    }
 
-    println!("p: {}, q: {}", p, q);
+    let value = 0;
+
+    match value {
+        n if n > 0 => println!("Value is Positive"),
+        n if n < 0 => println!("Value is Negative"),
+        _ => println!("Value is Zero"),
+    }
 }
