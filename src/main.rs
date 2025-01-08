@@ -1,31 +1,47 @@
-fn compare_numbers(a: i32, b: i32) {
-    if a > b {
-        println!("{} is larger than {}", a, b);
-    } else if b > a {
-        println!("{} is larger than {}", b, a);
-    } else {
-        println!("Both numbers are equal.");
-    }
-}
-
 fn main() {
-    // Example 1: Positive numbers
-    compare_numbers(10, 5);
+    let num1 = 10;
+    let num2 = 20;
+    
+    if num1 > num2 {
+        println!("{} is larger", num1);
+    } else if num1 < num2 {
+        println!("{} is larger", num2);
+    } else {
+        println!("Both numbers are equal");
+    }
 
-    // Example 2: Negative and positive numbers
-    compare_numbers(-3, 4);
+    let a = 5;
+    let b = 5;
+    if a > b {
+        println!("{} is larger", a);
+    } else if a < b {
+        println!("{} is larger", b);
+    } else {
+        println!("Both numbers are equal");
+    }
 
-    // Example 3: Both numbers are negative
-    compare_numbers(-8, -2);
+    let x = -3;
+    let y = -7;
+    if x > y {
+        println!("{} is larger", x);
+    } else if x < y {
+        println!("{} is larger", y);
+    } else {
+        println!("Both numbers are equal");
+    }
 
-    // Example 4: Equal numbers
-    compare_numbers(7, 7);
+    let p = 0;
+    let q = 42;
+    if p > q {
+        println!("{} is larger", p);
+    } else if p < q {
+        println!("{} is larger", q);
+    } else {
+        println!("Both numbers are equal");
+    }
 
-    // Example 5: Larger and smaller positive numbers
-    compare_numbers(50, 20);
-
-    // Example 6: Comparing zero
-    compare_numbers(0, 0);
-    compare_numbers(0, 5);
-    compare_numbers(-5, 0);
+    let m = 100;
+    let n = 67;
+    let larger = if m > n { m } else { n };
+    println!("The larger number is {}", larger);
 }
