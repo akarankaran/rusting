@@ -1,19 +1,31 @@
-def compare_numbers(num1, num2):
-    if num1 > num2:
-        return f"{num1} is larger than {num2}"
-    elif num1 < num2:
-        return f"{num2} is larger than {num1}"
-    else:
-        return "Both numbers are equal"
+fn compare_numbers(a: i32, b: i32) {
+    if a > b {
+        println!("{} is larger than {}", a, b);
+    } else if b > a {
+        println!("{} is larger than {}", b, a);
+    } else {
+        println!("Both numbers are equal.");
+    }
+}
 
-# Examples
-print(compare_numbers(10, 5))          # 10 is larger than 5
-print(compare_numbers(5, 10))          # 10 is larger than 5
-print(compare_numbers(-3, -7))         # -3 is larger than -7
-print(compare_numbers(0, 0))           # Both numbers are equal
-print(compare_numbers(2.5, 2.3))       # 2.5 is larger than 2.3
-print(compare_numbers(42, 42))         # Both numbers are equal
-print(compare_numbers(-1, -1))         # Both numbers are equal
-print(compare_numbers(100, -200))      # 100 is larger than -200
-print(compare_numbers(3.14, 3.14))     # Both numbers are equal
-print(compare_numbers(7, 7.0))         # Both numbers are equal
+fn main() {
+    // Example 1: Positive numbers
+    compare_numbers(10, 5);
+
+    // Example 2: Negative and positive numbers
+    compare_numbers(-3, 4);
+
+    // Example 3: Both numbers are negative
+    compare_numbers(-8, -2);
+
+    // Example 4: Equal numbers
+    compare_numbers(7, 7);
+
+    // Example 5: Larger and smaller positive numbers
+    compare_numbers(50, 20);
+
+    // Example 6: Comparing zero
+    compare_numbers(0, 0);
+    compare_numbers(0, 5);
+    compare_numbers(-5, 0);
+}
