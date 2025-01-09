@@ -1,13 +1,10 @@
 fn main() {
-    let mut a = 0;
-    let mut b = 1;
-    let mut count = 0;
+    let grade = 85;
 
-    while count < 10 {
-        println!("{}", a);
-        let next = a + b;
-        a = b;
-        b = next;
-        count += 1;
+    match grade {
+        90..=100 => println!("Excellent"),
+        75..=89 => println!("Good"),
+        0..=74 => println!("Poor"),
+        _ => println!("Invalid grade"),
     }
 }
