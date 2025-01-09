@@ -1,9 +1,12 @@
 fn main() {
-    let mut sum = 0;
-    for i in 1..=50 {
-        if i % 2 != 0 {
-            sum += i;
-        }
+    let mut number = 12345;
+    let mut reversed = 0;
+
+    while number != 0 {
+        let digit = number % 10;
+        reversed = reversed * 10 + digit;
+        number /= 10;
     }
-    println!("{}", sum);
+
+    println!("{}", reversed);
 }
