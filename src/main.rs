@@ -1,13 +1,12 @@
 fn main() {
-    let mut sum = 0;
-    let mut count = 0;
-    let mut number = 2;
+    let numbers = [34, 15, 88, 2, -5, 0];
+    let mut smallest = numbers[0];
 
-    while count < 10 {
-        sum += number;
-        number += 2;
-        count += 1;
+    for &number in &numbers {
+        if number < smallest {
+            smallest = number;
+        }
     }
 
-    println!("The sum of the first 10 even numbers is: {}", sum);
+    println!("The smallest number is {}", smallest);
 }
