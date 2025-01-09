@@ -1,64 +1,32 @@
+use std::io;
+
 fn main() {
-    let a = 10;
-    let b = 2;
+    let mut input = String::new();
+    println!("Enter first number:");
+    io::stdin().read_line(&mut input).unwrap();
+    let num1: f64 = input.trim().parse().unwrap();
 
-    if a % b == 0 {
-        println!("{} is divisible by {}", a, b);
-    } else {
-        println!("{} is not divisible by {}", a, b);
-    }
+    input.clear();
+    println!("Enter second number:");
+    io::stdin().read_line(&mut input).unwrap();
+    let num2: f64 = input.trim().parse().unwrap();
 
-    let c = 15;
-    let d = 4;
+    println!("Select operation: +, -, *, /");
+    input.clear();
+    io::stdin().read_line(&mut input).unwrap();
+    let operation = input.trim();
 
-    if c % d == 0 {
-        println!("{} is divisible by {}", c, d);
-    } else {
-        println!("{} is not divisible by {}", c, d);
-    }
-
-    let e = 0;
-    let f = 5;
-
-    if e % f == 0 {
-        println!("{} is divisible by {}", e, f);
-    } else {
-        println!("{} is not divisible by {}", e, f);
-    }
-
-    let g = 14;
-    let h = 7;
-
-    if g % h == 0 {
-        println!("{} is divisible by {}", g, h);
-    } else {
-        println!("{} is not divisible by {}", g, h);
-    }
-
-    let i = -20;
-    let j = 4;
-
-    if i % j == 0 {
-        println!("{} is divisible by {}", i, j);
-    } else {
-        println!("{} is not divisible by {}", i, j);
-    }
-
-    let k = 21;
-    let l = 6;
-
-    if k % l == 0 {
-        println!("{} is divisible by {}", k, l);
-    } else {
-        println!("{} is not divisible by {}", k, l);
-    }
-
-    let m = 100;
-    let n = 10;
-
-    if m % n == 0 {
-        println!("{} is divisible by {}", m, n);
-    } else {
-        println!("{} is not divisible by {}", m, n);
+    match operation {
+        "+" => println!("Result: {}", num1 + num2),
+        "-" => println!("Result: {}", num1 - num2),
+        "*" => println!("Result: {}", num1 * num2),
+        "/" => {
+            if num2 != 0.0 {
+                println!("Result: {}", num1 / num2);
+            } else {
+                println!("Error: Division by zero");
+            }
+        },
+        _ => println!("Invalid operation"),
     }
 }
