@@ -1,51 +1,34 @@
 fn main() {
-    let number: i32 = 5;
+    let a = true;
+    let b = false;
+    let c = true;
 
-    if number > 0 {
-        println!("Positive");
-    } else if number < 0 {
-        println!("Negative");
-    } else {
-        println!("Zero");
-    }
+    let and_result = a && b;
+    let or_result = a || b;
+    let not_result = !a;
 
-    let numbers = [-10, 0, 15, -3, 2];
+    let combined_result = a && b || c;
+    let nested_result = (a && b) || (c && !b);
 
-    for &num in &numbers {
-        if num > 0 {
-            println!("{} is Positive", num);
-        } else if num < 0 {
-            println!("{} is Negative", num);
-        } else {
-            println!("{} is Zero", num);
-        }
-    }
+    let values = vec![a, b, c];
+    let all_true = values.iter().all(|&x| x);
+    let any_true = values.iter().any(|&x| x);
 
-    let num = -1;
+    let xor_result = a ^ b;
+    let double_negation = !!b;
 
-    match num {
-        n if n > 0 => println!("Positive"),
-        n if n < 0 => println!("Negative"),
-        _ => println!("Zero"),
-    }
+    let complex_expression = (a || !b) && (c && !a);
+    let reachability = (a && !c) || (b || c);
 
-    let inputs = vec![3, -1, 0, 45, -22];
-
-    for &input in &inputs {
-        if input > 0 {
-            println!("{} is Positive", input);
-        } else if input < 0 {
-            println!("{} is Negative", input);
-        } else {
-            println!("{} is Zero", input);
-        }
-    }
-
-    let value = 0;
-
-    match value {
-        n if n > 0 => println!("Value is Positive"),
-        n if n < 0 => println!("Value is Negative"),
-        _ => println!("Value is Zero"),
-    }
+    println!("AND Result: {}", and_result);
+    println!("OR Result: {}", or_result);
+    println!("NOT Result: {}", not_result);
+    println!("Combined Result: {}", combined_result);
+    println!("Nested Result: {}", nested_result);
+    println!("All True: {}", all_true);
+    println!("Any True: {}", any_true);
+    println!("XOR Result: {}", xor_result);
+    println!("Double Negation: {}", double_negation);
+    println!("Complex Expression: {}", complex_expression);
+    println!("Reachability: {}", reachability);
 }
