@@ -1,22 +1,21 @@
+use std::io;
+
 fn main() {
-    let x = 5;
-    println!("The value of x is: {}", x);
+    let mut input = String::new();
+    println!("Enter three numbers separated by spaces:");
+    io::stdin().read_line(&mut input).expect("Failed to read line");
+    let numbers: Vec<f64> = input
+        .trim()
+        .split_whitespace()
+        .map(|s| s.parse().expect("Please enter a valid number"))
+        .collect();
 
-    let x = "Now I'm a string!";
-    println!("The value of x is: {}", x);
+    if numbers.len() != 3 {
+        println!("Please enter exactly three numbers.");
+        return;
+    }
 
-    let x = 3.14;
-    println!("Now x is a floating point number: {}", x);
-
-    let x = true;
-    println!("And now x is a boolean: {}", x);
-
-    let x = vec![1, 2, 3];
-    println!("Now x is a vector: {:?}", x);
-
-    let x = (1, 'a', 3.0);
-    println!("Now x is a tuple: {:?}", x);
-
-    let x = char::from(97);
-    println!("Now x is a char: {}", x);
+    let sum: f64 = numbers.iter().sum();
+    let average = sum / 3.0;
+    println!("The average is: {}", average);
 }
