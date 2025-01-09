@@ -1,12 +1,21 @@
 fn main() {
-    let number = 5;
-    let limit = 10;
-    
-    for i in 1..=limit {
-        for j in 1..=limit {
-            let product = number * i * j;
-            print!("{} ", product);
+    let number = 29;
+    let mut is_prime = true;
+
+    if number < 2 {
+        is_prime = false;
+    } else {
+        for i in 2..=(number as f64).sqrt() as usize {
+            if number % i == 0 {
+                is_prime = false;
+                break;
+            }
         }
-        println!();
+    }
+
+    if is_prime {
+        println!("{} is a prime number.", number);
+    } else {
+        println!("{} is not a prime number.", number);
     }
 }
