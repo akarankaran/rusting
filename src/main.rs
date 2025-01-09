@@ -1,16 +1,9 @@
-use std::io;
-
 fn main() {
-    let mut input = String::new();
-    println!("Enter a number:");
-    io::stdin().read_line(&mut input).unwrap();
-    let mut number: i32 = input.trim().parse().unwrap();
-    let mut sum = 0;
+    let day = "Saturday";
 
-    while number > 0 {
-        sum += number % 10;
-        number /= 10;
+    match day {
+        "Saturday" | "Sunday" => println!("It's the weekend!"),
+        "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday" => println!("It's a weekday."),
+        _ => println!("Invalid day."),
     }
-
-    println!("The sum of the digits is: {}", sum);
 }
