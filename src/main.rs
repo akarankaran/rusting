@@ -1,13 +1,16 @@
-fn main() {
-    let input_string = String::from("Hello, world!");
-    let vowels = "aeiouAEIOU";
-    let mut count = 0;
+use std::io;
 
-    for c in input_string.chars() {
-        if vowels.contains(c) {
-            count += 1;
-        }
+fn main() {
+    let mut input = String::new();
+    println!("Enter a number:");
+    io::stdin().read_line(&mut input).unwrap();
+    let mut number: i32 = input.trim().parse().unwrap();
+    let mut sum = 0;
+
+    while number > 0 {
+        sum += number % 10;
+        number /= 10;
     }
 
-    println!("Number of vowels: {}", count);
+    println!("The sum of the digits is: {}", sum);
 }
