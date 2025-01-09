@@ -1,10 +1,12 @@
 fn main() {
-    let numbers = [1, 2, 3, 4, 5];
-    let mut product = 1;
-
-    for &num in &numbers {
-        product *= num;
+    let number = 5;
+    let limit = 10;
+    
+    for i in 1..=limit {
+        for j in 1..=limit {
+            let product = number * i * j;
+            print!("{} ", product);
+        }
+        println!();
     }
-
-    println!("The product of all numbers in the array is: {}", product);
 }
