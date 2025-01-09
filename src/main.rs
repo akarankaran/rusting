@@ -1,34 +1,40 @@
 fn main() {
     let a = true;
     let b = false;
-    let c = true;
 
     let and_result = a && b;
     let or_result = a || b;
-    let not_result = !a;
+    let not_a = !a;
+    let not_b = !b;
 
-    let combined_result = a && b || c;
-    let nested_result = (a && b) || (c && !b);
+    let complex_expression_1 = (a && !b) || (!a && b);
+    let complex_expression_2 = !(a || b) && (a && b);
 
-    let values = vec![a, b, c];
-    let all_true = values.iter().all(|&x| x);
-    let any_true = values.iter().any(|&x| x);
+    let values = vec![true, false];
 
-    let xor_result = a ^ b;
-    let double_negation = !!b;
+    for &x in &values {
+        for &y in &values {
+            println!("x: {}, y: {}, x && y: {}, x || y: {}, !x: {}, !y: {}", x, y, x && y, x || y, !x, !y);
+        }
+    }
 
-    let complex_expression = (a || !b) && (c && !a);
-    let reachability = (a && !c) || (b || c);
+    let a_value = 5;
+    let b_value = 10;
+    let comparison_result = a_value < b_value;
 
-    println!("AND Result: {}", and_result);
-    println!("OR Result: {}", or_result);
-    println!("NOT Result: {}", not_result);
-    println!("Combined Result: {}", combined_result);
-    println!("Nested Result: {}", nested_result);
-    println!("All True: {}", all_true);
-    println!("Any True: {}", any_true);
-    println!("XOR Result: {}", xor_result);
-    println!("Double Negation: {}", double_negation);
-    println!("Complex Expression: {}", complex_expression);
-    println!("Reachability: {}", reachability);
+    let is_positive = |num: i32| num > 0;
+    let is_negative = |num: i32| num < 0;
+
+    let check_positive = is_positive(3) && !is_negative(3);
+    let check_negative = is_negative(-1) && !is_positive(-1);
+
+    println!("and_result: {}", and_result);
+    println!("or_result: {}", or_result);
+    println!("not_a: {}", not_a);
+    println!("not_b: {}", not_b);
+    println!("complex_expression_1: {}", complex_expression_1);
+    println!("complex_expression_2: {}", complex_expression_2);
+    println!("comparison_result: {}", comparison_result);
+    println!("check_positive: {}", check_positive);
+    println!("check_negative: {}", check_negative);
 }
