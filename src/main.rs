@@ -1,9 +1,23 @@
 fn main() {
-    let number = 15;
+    let a = 10;
+    let b = 20;
+    let c = 15;
 
-    if number % 3 == 0 && number % 5 == 0 {
-        println!("{} is divisible by both 3 and 5", number);
+    let largest;
+
+    if a > b {
+        if a > c {
+            largest = a;
+        } else {
+            largest = c;
+        }
     } else {
-        println!("{} is not divisible by both 3 and 5", number);
+        if b > c {
+            largest = b;
+        } else {
+            largest = c;
+        }
     }
+
+    println!("The largest number is: {}", largest);
 }
