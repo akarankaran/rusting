@@ -1,12 +1,13 @@
 fn main() {
-    let numbers = [34, 15, 88, 2, -5, 0];
-    let mut smallest = numbers[0];
+    let mut a = 0;
+    let mut b = 1;
+    let mut count = 0;
 
-    for &number in &numbers {
-        if number < smallest {
-            smallest = number;
-        }
+    while count < 10 {
+        println!("{}", a);
+        let next = a + b;
+        a = b;
+        b = next;
+        count += 1;
     }
-
-    println!("The smallest number is {}", smallest);
 }
