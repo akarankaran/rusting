@@ -1,23 +1,40 @@
-use std::io;
-
 fn main() {
-    let mut input = String::new();
-    println!("Enter a number to convert to binary:");
-    io::stdin().read_line(&mut input).expect("Failed to read line");
-    let number: u32 = input.trim().parse().expect("Please enter a valid number");
-    let mut binary = Vec::new();
+    let s1 = String::from("Hello");
+    let s2 = s1;
     
-    let mut num = number;
-    if num == 0 {
-        binary.push('0');
-    } else {
-        while num > 0 {
-            binary.push(if num % 2 == 0 { '0' } else { '1' });
-            num /= 2;
-        }
-    }
+    println!("{}", s2);
     
-    binary.reverse();
-    let binary_string: String = binary.iter().collect();
-    println!("Binary representation of {} is: {}", number, binary_string);
+    let a = Box::new(5);
+    let b = a;
+    
+    println!("{}", b);
+    
+    let x = String::from("Ownership");
+    take_ownership(x);
+    
+    // Uncommenting the next line will cause an error because x has been moved
+    // println!("{}", x);
+    
+    let y = String::from("Borrowed");
+    let z = borrow_string(&y);
+    
+    println!("{}", y);
+    println!("{}", z);
+    
+    let v1 = vec![1, 2, 3];
+    let v2 = move_vec(v1);
+    
+    println!("{:?}", v2);
+}
+
+fn take_ownership(s: String) {
+    println!("{}", s);
+}
+
+fn borrow_string(s: &String) -> String {
+    s.clone()
+}
+
+fn move_vec(v: Vec<i32>) -> Vec<i32> {
+    v
 }
