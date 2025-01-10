@@ -1,11 +1,13 @@
-fn first_character(s: &str) -> Option<char> {
-    s.chars().next()
+fn main() {
+    let array = [1, 2, 3, 4, 5];
+    let sum = calculate_sum(&array);
+    println!("The sum is: {}", sum);
 }
 
-fn main() {
-    let example_string = "Hello, world!";
-    match first_character(example_string) {
-        Some(c) => println!("The first character is: {}", c),
-        None => println!("The string is empty."),
+fn calculate_sum(arr: &[i32]) -> i32 {
+    let mut total = 0;
+    for &item in arr.iter() {
+        total += item;
     }
+    total
 }
