@@ -1,12 +1,12 @@
-fn modify_vector(mut vec: Vec<i32>) -> Vec<i32> {
-    for i in 0..vec.len() {
-        vec[i] *= 2;
-    }
-    vec
+fn main() {
+    let s1 = String::from("Hello, ");
+    let s2 = String::from("world!");
+    let s3 = String::from(" How are you?");
+    
+    let combined = combine_strings(&s1, &s2, &s3);
+    println!("{}", combined);
 }
 
-fn main() {
-    let my_vec = vec![1, 2, 3, 4, 5];
-    let modified_vec = modify_vector(my_vec);
-    println!("{:?}", modified_vec);
+fn combine_strings<'a>(s1: &'a str, s2: &'a str, s3: &'a str) -> String {
+    format!("{}{}{}", s1, s2, s3)
 }
