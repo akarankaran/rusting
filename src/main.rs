@@ -1,6 +1,15 @@
 fn main() {
-    let original = vec![1, 2, 3, 4, 5];
-    let cloned = original.clone();
-    println!("Original: {:?}", original);
-    println!("Cloned: {:?}", cloned);
+    let s1 = String::from("Hello");
+    let s2 = takes_ownership(s1);
+    let s3 = String::from("World");
+    let s4 = gives_back(s3);
+    println!("{}, {}", s2, s4);
+}
+
+fn takes_ownership(s: String) -> String {
+    s
+}
+
+fn gives_back(s: String) -> String {
+    s
 }
