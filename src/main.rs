@@ -1,13 +1,11 @@
 fn main() {
-    let array = [1, 2, 3, 4, 5];
-    let sum = calculate_sum(&array);
-    println!("The sum is: {}", sum);
+    let mut vec = vec![1, 2, 3];
+    add_elements(&mut vec);
+    println!("{:?}", vec);
 }
 
-fn calculate_sum(arr: &[i32]) -> i32 {
-    let mut total = 0;
-    for &item in arr.iter() {
-        total += item;
-    }
-    total
+fn add_elements(vec: &mut Vec<i32>) {
+    vec.push(4);
+    vec.push(5);
+    vec.push(6);
 }
