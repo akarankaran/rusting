@@ -1,15 +1,11 @@
 fn main() {
-    let s1 = String::from("Hello");
-    let s2 = takes_ownership(s1);
-    let s3 = String::from("World");
-    let s4 = gives_back(s3);
-    println!("{}, {}", s2, s4);
+    let mut vec = vec![1, 2, 3, 4, 5];
+    swap(&mut vec, 1, 3);
+    println!("{:?}", vec);
 }
 
-fn takes_ownership(s: String) -> String {
-    s
-}
-
-fn gives_back(s: String) -> String {
-    s
+fn swap<T>(vec: &mut Vec<T>, a: usize, b: usize) {
+    let temp = std::mem::take(&mut vec[a]);
+    vec[a] = std::mem::take(&mut vec[b]);
+    vec[b] = temp;
 }
