@@ -1,25 +1,34 @@
-fn double_value(num: &mut i32) {
-    *num *= 2;
+fn main() {
+    let r;
+    {
+        let x = 42;
+        r = &x;
+    }
+    // println!("{}", r); // This line would cause a compile-time error due to dangling reference
+
+    let y = String::from("Hello");
+    let r1 = &y;
+    let r2 = &y;
+    println!("{}, {}", r1, r2);
+
+    let mut z = String::from("World");
+    let r3 = &mut z;
+    r3.push_str("!");
+    println!("{}", r3);
+
+    let s1 = String::from("Rust");
+    let s2 = takes_ownership(s1);
+    // println!("{}", s1); // This line would cause a compile-time error because s1's ownership has been moved
+
+    let s3 = String::from("Programming");
+    let length = calculate_length(&s3);
+    println!("The length of '{}' is {}.", s3, length);
 }
 
-fn main() {
-    let mut my_number = 5;
-    double_value(&mut my_number);
-    println!("{}", my_number);
-    
-    let mut another_number = 10;
-    double_value(&mut another_number);
-    println!("{}", another_number);
-    
-    let mut negative_number = -3;
-    double_value(&mut negative_number);
-    println!("{}", negative_number);
-    
-    let mut zero_number = 0;
-    double_value(&mut zero_number);
-    println!("{}", zero_number);
-    
-    let mut large_number = 1000;
-    double_value(&mut large_number);
-    println!("{}", large_number);
+fn takes_ownership(s: String) -> String {
+    s
+}
+
+fn calculate_length(s: &String) -> usize {
+    s.len()
 }
