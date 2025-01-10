@@ -1,23 +1,25 @@
+fn double_value(num: &mut i32) {
+    *num *= 2;
+}
+
 fn main() {
-    let a = 10;
-    let b = 20;
-    let c = 30;
-
-    let (ref x, ref y, ref z) = (&a, &b, &c);
-
-    println!("x: {}, y: {}, z: {}", x, y, z);
-
-    let d = 40;
-    let e = 50;
-
-    let (ref p1, ref p2) = (&d, &e);
+    let mut my_number = 5;
+    double_value(&mut my_number);
+    println!("{}", my_number);
     
-    println!("p1: {}, p2: {}", p1, p2);
+    let mut another_number = 10;
+    double_value(&mut another_number);
+    println!("{}", another_number);
     
-    let x2 = 5;
-    let y2 = 15;
-
-    let (ref a2, ref b2) = if true { (&x2, &y2) } else { (&x2, &y2) };
+    let mut negative_number = -3;
+    double_value(&mut negative_number);
+    println!("{}", negative_number);
     
-    println!("a2: {}, b2: {}", a2, b2);
+    let mut zero_number = 0;
+    double_value(&mut zero_number);
+    println!("{}", zero_number);
+    
+    let mut large_number = 1000;
+    double_value(&mut large_number);
+    println!("{}", large_number);
 }
