@@ -1,10 +1,15 @@
 fn main() {
-    let a = 5;
-    let b = 10;
-    let sum = add(a, b);
-    println!("The sum of {} and {} is {}", a, b, sum);
+    let numbers = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+    for number in numbers {
+        if is_even(number) {
+            println!("{} is even", number);
+        } else {
+            println!("{} is odd", number);
+        }
+    }
 }
 
-fn add(x: i32, y: i32) -> i32 {
-    x + y
+fn is_even(num: i32) -> bool {
+    num % 2 == 0
 }
