@@ -1,15 +1,10 @@
-fn largest<T: PartialOrd>(vec: &[T]) -> &T {
-    let mut largest = &vec[0];
-    for item in vec {
-        if item > largest {
-            largest = item;
-        }
-    }
-    largest
+fn main() {
+    let a = 5;
+    let b = 10;
+    let sum = add(a, b);
+    println!("The sum of {} and {} is {}", a, b, sum);
 }
 
-fn main() {
-    let numbers = vec![34, 50, 25, 100, 65];
-    let result = largest(&numbers);
-    println!("The largest number is {}", result);
+fn add(x: i32, y: i32) -> i32 {
+    x + y
 }
