@@ -1,30 +1,65 @@
-struct Polar {
-    radius: f64,
-    angle: f64,
+use std::collections::HashMap;
+use std::io;
+
+struct Item {
+    name: String,
+    quantity: u32,
+    price: f32,
 }
 
-impl Polar {
-    fn to_cartesian(&self) -> (f64, f64) {
-        let x = self.radius * self.angle.cos();
-        let y = self.radius * self.angle.sin();
-        (x, y)
+impl Item {
+    fn new(name: &str, quantity: u32, price: f32) -> Item {
+        Item {
+            name: name.to_string(),
+            quantity,
+            price,
+        }
+    }
+
+    fn total_value(&self) -> f32 {
+        self.quantity as f32 * self.price
     }
 }
 
 fn main() {
-    let point1 = Polar { radius: 5.0, angle: 1.0 };
-    let (x1, y1) = point1.to_cartesian();
-    println!("Cartesian coordinates of point1: ({}, {})", x1, y1);
+    let mut inventory: HashMap<String, Item> = HashMap::new();
+    loop {
+        println!("Enter command (add, view, total, exit):");
+        let mut command = String::new();
+        io::stdin().read_line(&mut command).expect("Failed to read line");
+        let command = command.trim();
 
-    let point2 = Polar { radius: 10.0, angle: 3.14 };
-    let (x2, y2) = point2.to_cartesian();
-    println!("Cartesian coordinates of point2: ({}, {})", x2, y2);
+        match command {
+            "add" => {
+                let mut name = String::new();
+                let mut quantity_str = String::new();
+                let mut price_str = String::new();
 
-    let point3 = Polar { radius: 2.5, angle: 0.5236 };
-    let (x3, y3) = point3.to_cartesian();
-    println!("Cartesian coordinates of point3: ({}, {})", x3, y3);
+                println!("Enter item name:");
+                io::stdin().read_line(&mut name).expect("Failed to read line");
+                
+                println!("Enter quantity:");
+                io::stdin().read_line(&mut quantity_str).expect("Failed to read line");
+                let quantity: u32 = quantity_str.trim().parse().expect("Please enter a valid number");
 
-    let point4 = Polar { radius: 7.0, angle: 2.356 };
-    let (x4, y4) = point4.to_cartesian();
-    println!("Cartesian coordinates of point4: ({}, {})", x4, y4);
+                println!("Enter price:");
+                io::stdin().read_line(&mut price_str).expect("Failed to read line");
+                let price: f32 = price_str.trim().parse().expect("Please enter a valid number");
+
+                let item = Item::new(&name.trim(), quantity, price);
+                inventory.insert(item.name.clone(), item);
+            },
+            "view" => {
+                for item in inventory.values() {
+                    println!("Item: {}, Quantity: {}, Price: ${:.2}", item.name, item.quantity, item.price);
+                }
+            },
+            "total" => {
+                let total_inventory_value: f32 = inventory.values().map(|item| item.total_value()).sum();
+                println!("Total inventory value: ${:.2}", total_inventory_value);
+            },
+            "exit" => break,
+            _ => println!("Unknown command"),
+        }
+    }
 }
