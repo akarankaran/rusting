@@ -1,27 +1,40 @@
-use std::ops::Add;
+use std::io;
 
-struct Vector3D {
-    x: f64,
-    y: f64,
-    z: f64,
+struct Subject {
+    name: String,
+    marks: u32,
 }
 
-impl Add for Vector3D {
-    type Output = Vector3D;
+struct Student {
+    name: String,
+    subjects: Vec<Subject>,
+}
 
-    fn add(self, other: Vector3D) -> Vector3D {
-        Vector3D {
-            x: self.x + other.x,
-            y: self.y + other.y,
-            z: self.z + other.z,
-        }
+impl Student {
+    fn total_marks(&self) -> u32 {
+        self.subjects.iter().map(|subject| subject.marks).sum()
     }
 }
 
 fn main() {
-    let vec1 = Vector3D { x: 1.0, y: 2.0, z: 3.0 };
-    let vec2 = Vector3D { x: 4.0, y: 5.0, z: 6.0 };
-    let result = vec1 + vec2;
+    let mut student = Student {
+        name: String::from("John Doe"),
+        subjects: Vec::new(),
+    };
 
-    println!("Resulting Vector: ({}, {}, {})", result.x, result.y, result.z);
+    let subjects = ["Math", "Science", "English", "History", "Art"];
+    
+    for &subject_name in &subjects {
+        println!("Enter marks for {}: ", subject_name);
+        let mut input = String::new();
+        io::stdin().read_line(&mut input).expect("Failed to read line");
+        let marks: u32 = input.trim().parse().expect("Please enter a valid number");
+        student.subjects.push(Subject {
+            name: subject_name.to_string(),
+            marks,
+        });
+    }
+
+    let total = student.total_marks();
+    println!("Total marks for {}: {}", student.name, total);
 }
