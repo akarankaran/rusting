@@ -1,34 +1,37 @@
-use std::fmt;
+use std::io;
 
-struct Book {
-    title: String,
-    author: String,
-    pages: u32,
-}
-
-impl fmt::Display for Book {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Title: {}, Author: {}, Pages: {}", self.title, self.author, self.pages)
-    }
-}
-
-fn print_book_details(book: &Book) {
-    println!("{}", book);
+struct Student {
+    name: String,
+    marks: f32,
 }
 
 fn main() {
-    let book1 = Book {
-        title: String::from("1984"),
-        author: String::from("George Orwell"),
-        pages: 328,
-    };
+    let mut students: Vec<Student> = Vec::new();
+    let mut input = String::new();
 
-    let book2 = Book {
-        title: String::from("The Catcher in the Rye"),
-        author: String::from("J.D. Salinger"),
-        pages: 277,
-    };
+    loop {
+        println!("Enter student name (or type 'exit' to finish):");
+        io::stdin().read_line(&mut input).unwrap();
+        let name = input.trim().to_string();
+        if name.to_lowercase() == "exit" {
+            break;
+        }
 
-    print_book_details(&book1);
-    print_book_details(&book2);
+        input.clear();
+        println!("Enter marks for {}:", name);
+        io::stdin().read_line(&mut input).unwrap();
+        let marks: f32 = input.trim().parse().unwrap();
+
+        students.push(Student { name, marks });
+        input.clear();
+    }
+
+    println!("Student Data:");
+    for student in &students {
+        println!("Name: {}, Marks: {}", student.name, student.marks);
+    }
+
+    let total_marks: f32 = students.iter().map(|s| s.marks).sum();
+    let average_marks = total_marks / students.len() as f32;
+    println!("Average Marks: {}", average_marks);
 }
