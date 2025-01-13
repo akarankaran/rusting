@@ -1,40 +1,26 @@
-use std::cmp::PartialEq;
+use std::cmp;
 
-#[derive(Debug)]
-struct Item {
-    name: String,
-    weight: u32,
+struct Rectangle {
+    width: u32,
+    height: u32,
 }
 
-#[derive(Debug)]
-struct Box {
-    items: Vec<Item>,
-    capacity: u32,
-}
-
-impl PartialEq for Item {
-    fn eq(&self, other: &Self) -> bool {
-        self.name == other.name && self.weight == other.weight
-    }
-}
-
-impl PartialEq for Box {
-    fn eq(&self, other: &Self) -> bool {
-        self.items == other.items && self.capacity == other.capacity
+impl Rectangle {
+    fn can_fit_inside(&self, other: &Rectangle) -> bool {
+        (self.width <= other.width && self.height <= other.height) ||
+        (self.height <= other.width && self.width <= other.height)
     }
 }
 
 fn main() {
-    let item1 = Item { name: String::from("Item1"), weight: 10 };
-    let item2 = Item { name: String::from("Item1"), weight: 10 };
-    let item3 = Item { name: String::from("Item3"), weight: 20 };
+    let rect1 = Rectangle { width: 3, height: 4 };
+    let rect2 = Rectangle { width: 5, height: 6 };
+    let rect3 = Rectangle { width: 6, height: 5 };
     
-    let box1 = Box { items: vec![item1.clone(), item3.clone()], capacity: 100 };
-    let box2 = Box { items: vec![item2.clone(), item3.clone()], capacity: 100 };
-    let box3 = Box { items: vec![item1.clone()], capacity: 50 };
-
-    assert!(item1 == item2);
-    assert!(item1 != item3);
-    assert!(box1 == box2);
-    assert!(box1 != box3);
+    assert_eq!(rect1.can_fit_inside(&rect2), true);
+    assert_eq!(rect1.can_fit_inside(&rect3), true);
+    assert_eq!(rect2.can_fit_inside(&rect1), false);
+    assert_eq!(rect2.can_fit_inside(&rect3), true);
+    assert_eq!(rect3.can_fit_inside(&rect2), false);
+    assert_eq!(rect3.can_fit_inside(&rect1), false);
 }
