@@ -1,40 +1,47 @@
-use std::io;
+use std::f64;
 
-struct Subject {
-    name: String,
-    marks: u32,
+struct Circle {
+    radius: f64,
 }
 
-struct Student {
-    name: String,
-    subjects: Vec<Subject>,
+struct Rectangle {
+    width: f64,
+    height: f64,
 }
 
-impl Student {
-    fn total_marks(&self) -> u32 {
-        self.subjects.iter().map(|subject| subject.marks).sum()
+impl Circle {
+    fn fits_in_rectangle(&self, rect: &Rectangle) -> bool {
+        let diameter = self.radius * 2.0;
+        diameter <= rect.width && diameter <= rect.height
     }
 }
 
 fn main() {
-    let mut student = Student {
-        name: String::from("John Doe"),
-        subjects: Vec::new(),
-    };
+    let circle1 = Circle { radius: 4.0 };
+    let rectangle1 = Rectangle { width: 10.0, height: 10.0 };
+    assert!(circle1.fits_in_rectangle(&rectangle1));
 
-    let subjects = ["Math", "Science", "English", "History", "Art"];
+    let circle2 = Circle { radius: 6.0 };
+    let rectangle2 = Rectangle { width: 5.0, height: 5.0 };
+    assert!(!circle2.fits_in_rectangle(&rectangle2));
     
-    for &subject_name in &subjects {
-        println!("Enter marks for {}: ", subject_name);
-        let mut input = String::new();
-        io::stdin().read_line(&mut input).expect("Failed to read line");
-        let marks: u32 = input.trim().parse().expect("Please enter a valid number");
-        student.subjects.push(Subject {
-            name: subject_name.to_string(),
-            marks,
-        });
-    }
+    let circle3 = Circle { radius: 3.0 };
+    let rectangle3 = Rectangle { width: 6.0, height: 5.0 };
+    assert!(circle3.fits_in_rectangle(&rectangle3));
+    
+    let circle4 = Circle { radius: 7.0 };
+    let rectangle4 = Rectangle { width: 8.0, height: 5.0 };
+    assert!(!circle4.fits_in_rectangle(&rectangle4));
 
-    let total = student.total_marks();
-    println!("Total marks for {}: {}", student.name, total);
+    let circle5 = Circle { radius: 0.5 };
+    let rectangle5 = Rectangle { width: 1.0, height: 1.0 };
+    assert!(circle5.fits_in_rectangle(&rectangle5));
+    
+    let circle6 = Circle { radius: 10.0 };
+    let rectangle6 = Rectangle { width: 20.0, height: 20.0 };
+    assert!(circle6.fits_in_rectangle(&rectangle6));
+
+    let circle7 = Circle { radius: 12.0 };
+    let rectangle7 = Rectangle { width: 10.0, height: 24.0 };
+    assert!(!circle7.fits_in_rectangle(&rectangle7));
 }
