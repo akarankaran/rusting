@@ -1,64 +1,34 @@
-fn main() {
-    struct Person {
-        name: String,
-        age: u32,
+use std::fmt;
+
+struct Book {
+    title: String,
+    author: String,
+    pages: u32,
+}
+
+impl fmt::Display for Book {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Title: {}, Author: {}, Pages: {}", self.title, self.author, self.pages)
     }
+}
 
-    let mut person1 = Person {
-        name: String::from("Alice"),
-        age: 30,
+fn print_book_details(book: &Book) {
+    println!("{}", book);
+}
+
+fn main() {
+    let book1 = Book {
+        title: String::from("1984"),
+        author: String::from("George Orwell"),
+        pages: 328,
     };
 
-    let person2 = Person {
-        name: String::from("Bob"),
-        ..person1
+    let book2 = Book {
+        title: String::from("The Catcher in the Rye"),
+        author: String::from("J.D. Salinger"),
+        pages: 277,
     };
 
-    person1.age = 31;
-
-    let person3 = Person {
-        age: 25,
-        ..person1
-    };
-
-    let person4 = Person {
-        name: String::from("Charlie"),
-        age: 40,
-    };
-
-    let person5 = Person {
-        name: String::from("Dave"),
-        ..person4
-    };
-
-    let person6 = Person {
-        ..person1
-    };
-
-    let person7 = Person {
-        name: String::from("Eve"),
-        age: 22,
-    };
-
-    let person8 = Person {
-        age: 28,
-        ..person7
-    };
-
-    let person9 = Person {
-        name: String::from("Frank"),
-        age: 35,
-    };
-
-    let person10 = Person {
-        name: String::from("Grace"),
-        ..person9
-    };
-
-    println!("Person 2: {} is {} years old", person2.name, person2.age);
-    println!("Person 3: {} is {} years old", person3.name, person3.age);
-    println!("Person 5: {} is {} years old", person5.name, person5.age);
-    println!("Person 6: {} is {} years old", person6.name, person6.age);
-    println!("Person 8: {} is {} years old", person8.name, person8.age);
-    println!("Person 10: {} is {} years old", person10.name, person10.age);
+    print_book_details(&book1);
+    print_book_details(&book2);
 }
