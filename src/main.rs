@@ -1,7 +1,22 @@
-use std::f64;
+use std::fmt;
 
-struct Circle {
-    radius: f64,
+struct Person {
+    name: String,
+    age: u32,
+}
+
+impl Person {
+    pub fn new(name: String, age: u32) -> Self {
+        Person { name, age }
+    }
+
+    pub fn get_name(&self) -> &String {
+        &self.name
+    }
+
+    pub fn get_age(&self) -> u32 {
+        self.age
+    }
 }
 
 struct Rectangle {
@@ -9,39 +24,64 @@ struct Rectangle {
     height: f64,
 }
 
+impl Rectangle {
+    pub fn new(width: f64, height: f64) -> Self {
+        Rectangle { width, height }
+    }
+
+    pub fn get_width(&self) -> f64 {
+        self.width
+    }
+
+    pub fn get_height(&self) -> f64 {
+        self.height
+    }
+
+    pub fn area(&self) -> f64 {
+        self.width * self.height
+    }
+}
+
+struct Point {
+    x: i32,
+    y: i32,
+}
+
+impl Point {
+    pub fn new(x: i32, y: i32) -> Self {
+        Point { x, y }
+    }
+
+    pub fn get_x(&self) -> i32 {
+        self.x
+    }
+
+    pub fn get_y(&self) -> i32 {
+        self.y
+    }
+}
+
+struct Circle {
+    radius: f64,
+}
+
 impl Circle {
-    fn fits_in_rectangle(&self, rect: &Rectangle) -> bool {
-        let diameter = self.radius * 2.0;
-        diameter <= rect.width && diameter <= rect.height
+    pub fn new(radius: f64) -> Self {
+        Circle { radius }
+    }
+
+    pub fn get_radius(&self) -> f64 {
+        self.radius
+    }
+
+    pub fn area(&self) -> f64 {
+        std::f64::consts::PI * self.radius * self.radius
     }
 }
 
 fn main() {
-    let circle1 = Circle { radius: 4.0 };
-    let rectangle1 = Rectangle { width: 10.0, height: 10.0 };
-    assert!(circle1.fits_in_rectangle(&rectangle1));
-
-    let circle2 = Circle { radius: 6.0 };
-    let rectangle2 = Rectangle { width: 5.0, height: 5.0 };
-    assert!(!circle2.fits_in_rectangle(&rectangle2));
-    
-    let circle3 = Circle { radius: 3.0 };
-    let rectangle3 = Rectangle { width: 6.0, height: 5.0 };
-    assert!(circle3.fits_in_rectangle(&rectangle3));
-    
-    let circle4 = Circle { radius: 7.0 };
-    let rectangle4 = Rectangle { width: 8.0, height: 5.0 };
-    assert!(!circle4.fits_in_rectangle(&rectangle4));
-
-    let circle5 = Circle { radius: 0.5 };
-    let rectangle5 = Rectangle { width: 1.0, height: 1.0 };
-    assert!(circle5.fits_in_rectangle(&rectangle5));
-    
-    let circle6 = Circle { radius: 10.0 };
-    let rectangle6 = Rectangle { width: 20.0, height: 20.0 };
-    assert!(circle6.fits_in_rectangle(&rectangle6));
-
-    let circle7 = Circle { radius: 12.0 };
-    let rectangle7 = Rectangle { width: 10.0, height: 24.0 };
-    assert!(!circle7.fits_in_rectangle(&rectangle7));
+    let person = Person::new(String::from("Alice"), 30);
+    let rectangle = Rectangle::new(10.0, 5.0);
+    let point = Point::new(3, 4);
+    let circle = Circle::new(7.0);
 }
