@@ -1,15 +1,9 @@
 fn main() {
-    let numbers = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
-    for number in numbers {
-        if is_even(number) {
-            println!("{} is even", number);
-        } else {
-            println!("{} is odd", number);
-        }
-    }
+    let num = 5;
+    let square = calculate_square(num);
+    println!("The square of {} is {}", num, square);
 }
 
-fn is_even(num: i32) -> bool {
-    num % 2 == 0
+fn calculate_square(n: i32) -> i32 {
+    n * n
 }
