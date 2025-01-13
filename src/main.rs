@@ -1,27 +1,74 @@
 use std::io;
 
-struct Rectangle {
-    width: f64,
-    height: f64,
+struct BankAccount {
+    balance: f64,
 }
 
-impl Rectangle {
-    fn perimeter(&self) -> f64 {
-        2.0 * (self.width + self.height)
+impl BankAccount {
+    fn new() -> BankAccount {
+        BankAccount { balance: 0.0 }
+    }
+
+    fn deposit(&mut self, amount: f64) {
+        if amount > 0.0 {
+            self.balance += amount;
+            println!("Deposited: {}", amount);
+        } else {
+            println!("Deposit amount must be positive.");
+        }
+    }
+
+    fn withdraw(&mut self, amount: f64) {
+        if amount > 0.0 {
+            if self.balance >= amount {
+                self.balance -= amount;
+                println!("Withdrew: {}", amount);
+            } else {
+                println!("Insufficient funds for withdrawal.");
+            }
+        } else {
+            println!("Withdrawal amount must be positive.");
+        }
+    }
+
+    fn check_balance(&self) {
+        println!("Current balance: {}", self.balance);
     }
 }
 
 fn main() {
-    let mut input = String::new();
-    println!("Enter width of the rectangle: ");
-    io::stdin().read_line(&mut input).unwrap();
-    let width: f64 = input.trim().parse().unwrap();
+    let mut account = BankAccount::new();
 
-    input.clear();
-    println!("Enter height of the rectangle: ");
-    io::stdin().read_line(&mut input).unwrap();
-    let height: f64 = input.trim().parse().unwrap();
+    loop {
+        println!("Choose an option: 1) Deposit 2) Withdraw 3) Check Balance 4) Exit");
+        let mut choice = String::new();
+        io::stdin().read_line(&mut choice).unwrap();
+        let choice: i32 = choice.trim().parse().unwrap();
 
-    let rectangle = Rectangle { width, height };
-    println!("The perimeter of the rectangle is: {}", rectangle.perimeter());
+        match choice {
+            1 => {
+                let mut amount = String::new();
+                println!("Enter deposit amount: ");
+                io::stdin().read_line(&mut amount).unwrap();
+                let amount: f64 = amount.trim().parse().unwrap();
+                account.deposit(amount);
+            },
+            2 => {
+                let mut amount = String::new();
+                println!("Enter withdrawal amount: ");
+                io::stdin().read_line(&mut amount).unwrap();
+                let amount: f64 = amount.trim().parse().unwrap();
+                account.withdraw(amount);
+            },
+            3 => {
+                account.check_balance();
+            },
+            4 => {
+                break;
+            },
+            _ => {
+                println!("Invalid option. Please try again.");
+            }
+        }
+    }
 }
