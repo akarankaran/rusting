@@ -1,19 +1,64 @@
-use std::vec::Vec;
+use std::fmt;
 
-struct Student {
+struct Point {
+    x: f64,
+    y: f64,
+    z: f64,
+}
+
+struct Color {
+    red: u8,
+    green: u8,
+    blue: u8,
+}
+
+struct Shape {
     name: String,
-    score: f32,
+    color: Color,
+    position: Point,
+    volume: f64,
+}
+
+impl fmt::Display for Shape {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(
+            f,
+            "Shape: {}\nColor: ({}, {}, {})\nPosition: ({}, {}, {})\nVolume: {}",
+            self.name,
+            self.color.red,
+            self.color.green,
+            self.color.blue,
+            self.position.x,
+            self.position.y,
+            self.position.z,
+            self.volume
+        )
+    }
 }
 
 fn main() {
-    let students: Vec<Student> = vec![
-        Student { name: String::from("Alice"), score: 80.0 },
-        Student { name: String::from("Bob"), score: 70.0 },
-        Student { name: String::from("Charlie"), score: 85.0 },
-        Student { name: String::from("David"), score: 60.0 },
-        Student { name: String::from("Eve"), score: 90.0 },
-    ];
+    let cube = Shape {
+        name: String::from("Cube"),
+        color: Color {
+            red: 0,
+            green: 255,
+            blue: 0,
+        },
+        position: Point { x: 0.0, y: 0.0, z: 0.0 },
+        volume: 27.0,
+    };
 
-    let count = students.iter().filter(|student| student.score > 75.0).count();
-    println!("Number of students scoring above 75: {}", count);
+    let sphere = Shape {
+        name: String::from("Sphere"),
+        color: Color {
+            red: 255,
+            green: 0,
+            blue: 0,
+        },
+        position: Point { x: 1.0, y: 1.0, z: 1.0 },
+        volume: 33.51,
+    };
+
+    println!("{}", cube);
+    println!("{}", sphere);
 }
