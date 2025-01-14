@@ -1,17 +1,16 @@
-use std::collections::HashMap;
-
-fn main() {
-    let mut map = HashMap::new();
-    map.insert("key1", "value1");
-    map.insert("key2", "value2");
-
-    let result = get_value(&map, "key3");
-    match result {
-        Some(value) => println!("Found: {}", value),
-        None => println!("Key not found"),
-    }
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let result = outer_function()?;
+    println!("Result: {}", result);
+    Ok(())
 }
 
-fn get_value<'a>(map: &'a HashMap<&str, &'a str>, key: &str) -> Option<&'a str> {
-    map.get(key).cloned()
+fn outer_function() -> Result<i32, Box<dyn std::error::Error>> {
+    let value = inner_function()?;
+    Ok(value + 10)
+}
+
+fn inner_function() -> Result<i32, Box<dyn std::error::Error>> {
+    let num: Option<i32> = Some(5);
+    let valid_number = num.ok_or("Number was None")?;
+    Ok(valid_number * 2)
 }
