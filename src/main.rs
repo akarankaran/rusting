@@ -1,65 +1,35 @@
-use std::collections::HashMap;
 use std::io;
 
-struct Item {
-    name: String,
-    quantity: u32,
-    price: f32,
+struct MutableStruct {
+    field1: i32,
+    field2: String,
 }
 
-impl Item {
-    fn new(name: &str, quantity: u32, price: f32) -> Item {
-        Item {
-            name: name.to_string(),
-            quantity,
-            price,
-        }
+impl MutableStruct {
+    fn new(field1: i32, field2: String) -> Self {
+        Self { field1, field2 }
     }
 
-    fn total_value(&self) -> f32 {
-        self.quantity as f32 * self.price
+    fn modify_field1(&mut self, value: i32) {
+        self.field1 = value;
+    }
+
+    fn modify_field2(&mut self, value: String) {
+        self.field2 = value;
+    }
+
+    fn display(&self) {
+        println!("Field1: {}, Field2: {}", self.field1, self.field2);
     }
 }
 
 fn main() {
-    let mut inventory: HashMap<String, Item> = HashMap::new();
-    loop {
-        println!("Enter command (add, view, total, exit):");
-        let mut command = String::new();
-        io::stdin().read_line(&mut command).expect("Failed to read line");
-        let command = command.trim();
+    let mut my_struct = MutableStruct::new(10, String::from("Initial"));
 
-        match command {
-            "add" => {
-                let mut name = String::new();
-                let mut quantity_str = String::new();
-                let mut price_str = String::new();
+    my_struct.display();
 
-                println!("Enter item name:");
-                io::stdin().read_line(&mut name).expect("Failed to read line");
-                
-                println!("Enter quantity:");
-                io::stdin().read_line(&mut quantity_str).expect("Failed to read line");
-                let quantity: u32 = quantity_str.trim().parse().expect("Please enter a valid number");
+    my_struct.modify_field1(20);
+    my_struct.modify_field2(String::from("Modified"));
 
-                println!("Enter price:");
-                io::stdin().read_line(&mut price_str).expect("Failed to read line");
-                let price: f32 = price_str.trim().parse().expect("Please enter a valid number");
-
-                let item = Item::new(&name.trim(), quantity, price);
-                inventory.insert(item.name.clone(), item);
-            },
-            "view" => {
-                for item in inventory.values() {
-                    println!("Item: {}, Quantity: {}, Price: ${:.2}", item.name, item.quantity, item.price);
-                }
-            },
-            "total" => {
-                let total_inventory_value: f32 = inventory.values().map(|item| item.total_value()).sum();
-                println!("Total inventory value: ${:.2}", total_inventory_value);
-            },
-            "exit" => break,
-            _ => println!("Unknown command"),
-        }
-    }
+    my_struct.display();
 }
