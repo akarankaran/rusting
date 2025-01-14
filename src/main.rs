@@ -1,41 +1,34 @@
-use regex::Regex;
-use std::io;
+use std::fs::File;
+use std::io::{self, Write};
+use std::path::Path;
 
-fn main() {
-    let email = get_input("Enter your email: ");
-    match validate_email(&email) {
-        Ok(_) => println!("Valid email format."),
-        Err(e) => println!("Error: {}", e),
-    }
-
-    let phone = get_input("Enter your phone number: ");
-    match validate_phone(&phone) {
-        Ok(_) => println!("Valid phone format."),
-        Err(e) => println!("Error: {}", e),
-    }
+fn create_file<P: AsRef<Path>>(path: P) -> Result<File, io::Error> {
+    let file = File::create(path)?;
+    Ok(file)
 }
 
-fn get_input(prompt: &str) -> String {
-    let mut input = String::new();
-    println!("{}", prompt);
-    io::stdin().read_line(&mut input).expect("Failed to read line");
-    input.trim().to_string()
-}
-
-fn validate_email(email: &str) -> Result<(), &str> {
-    let re = Regex::new(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$").unwrap();
-    if re.is_match(email) {
-        Ok(())
-    } else {
-        Err("Invalid email format.")
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let file_path = "output.txt";
+    
+    match create_file(file_path) {
+        Ok(mut file) => {
+            if let Err(e) = writeln!(file, "Hello, World!") {
+                eprintln!("Failed to write to file: {}", e);
+            }
+        }
+        Err(e) => {
+            eprintln!("Error creating file: {}", e);
+            return Err(Box::new(e));
+        }
     }
-}
 
-fn validate_phone(phone: &str) -> Result<(), &str> {
-    let re = Regex::new(r"^\+?[1-9]\d{1,14}$").unwrap();
-    if re.is_match(phone) {
-        Ok(())
-    } else {
-        Err("Invalid phone number format.")
+    if let Err(e) = create_file("") {
+        eprintln!("Invalid file path: {}", e);
     }
+
+    if let Err(e) = create_file("/invalid/path/to/file.txt") {
+        eprintln!("Error creating file in invalid path: {}", e);
+    }
+
+    Ok(())
 }
