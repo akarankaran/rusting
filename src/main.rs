@@ -1,18 +1,16 @@
-fn divide(a: f64, b: f64) -> Result<f64, String> {
-    if b == 0.0 {
-        Err("Cannot divide by zero".to_string())
-    } else {
-        Ok(a / b)
-    }
+use std::num::ParseIntError;
+
+fn convert_to_number(input: &str) -> Result<i32, ParseIntError> {
+    input.trim().parse::<i32>()
 }
 
 fn main() {
-    let numbers = vec![(10.0, 2.0), (10.0, 0.0), (15.0, 3.0)];
+    let inputs = vec!["42", "  -42  ", "abc", "3.14", "0", "", "2147483647", "-2147483648", "2147483648"];
 
-    for (a, b) in numbers {
-        match divide(a, b) {
-            Ok(result) => println!("{} / {} = {}", a, b, result),
-            Err(e) => println!("Error: {}", e),
+    for &input in &inputs {
+        match convert_to_number(input) {
+            Ok(number) => println!("Successfully converted '{}': {}", input, number),
+            Err(e) => println!("Failed to convert '{}': {}", input, e),
         }
     }
 }
