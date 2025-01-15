@@ -1,25 +1,35 @@
-fn sum_slice(slice: &[i32]) -> i32 {
-    slice.iter().sum()
-}
+use std::cmp::{max, min};
 
 fn main() {
-    let arr = [1, 2, 3, 4, 5];
-    let slice = &arr[1..4];
-    let result = sum_slice(slice);
-    println!("The sum of the slice is: {}", result);
+    let array1 = [3, 5, 1, 4, 2];
+    let array2 = [-2, -1, -3, -4, -5];
+    let array3 = [10];
+    let array4: [i32; 0] = []; 
 
-    let arr2 = [10, 20, 30, 40, 50];
-    let slice2 = &arr2[0..2];
-    let result2 = sum_slice(slice2);
-    println!("The sum of the second slice is: {}", result2);
+    let (max1, min1) = find_max_min(&array1);
+    let (max2, min2) = find_max_min(&array2);
+    let (max3, min3) = find_max_min(&array3);
+    let (max4, min4) = find_max_min(&array4);
 
-    let arr3: [i32; 0] = [];
-    let slice3 = &arr3[0..0];
-    let result3 = sum_slice(slice3);
-    println!("The sum of the empty slice is: {}", result3);
+    println!("Array1 - Max: {}, Min: {}", max1, min1);
+    println!("Array2 - Max: {}, Min: {}", max2, min2);
+    println!("Array3 - Max: {}, Min: {}", max3, min3);
+    if !array4.is_empty() {
+        println!("Array4 - Max: {}, Min: {}", max4, min4);
+    } else {
+        println!("Array4 is empty.");
+    }
+}
 
-    let arr4 = [5, 10, 15, 20, 25, 30];
-    let slice4 = &arr4[2..];
-    let result4 = sum_slice(slice4);
-    println!("The sum of the last part of the array is: {}", result4);
+fn find_max_min(arr: &[i32]) -> (i32, i32) {
+    if arr.is_empty() {
+        panic!("Array is empty");
+    }
+    let mut max_elem = arr[0];
+    let mut min_elem = arr[0];
+    for &value in arr.iter() {
+        max_elem = max(max_elem, value);
+        min_elem = min(min_elem, value);
+    }
+    (max_elem, min_elem)
 }
