@@ -1,33 +1,30 @@
-fn main() {
-    let vector = vec![1, 3, 5, 2, 4];
-    let max_value = vector.iter().cloned().max().unwrap();
-    println!("The maximum value is: {}", max_value);
-    
-    let empty_vector: Vec<i32> = Vec::new();
-    let max_empty = empty_vector.iter().cloned().max().unwrap_or(0);
-    println!("The maximum value in empty vector is: {}", max_empty);
-    
-    let negative_vector = vec![-1, -2, -3, -4, -5];
-    let max_negative = negative_vector.iter().cloned().max().unwrap();
-    println!("The maximum value in negative vector is: {}", max_negative);
+use std::vec::Vec;
 
-    let mix_vector = vec![1, 2, -3, 4, -5];
-    let max_mixed = mix_vector.iter().cloned().max().unwrap();
-    println!("The maximum value in mixed vector is: {}", max_mixed);
+fn merge_vectors<T: Clone>(vec1: Vec<T>, vec2: Vec<T>) -> Vec<T> {
+    let mut merged = vec1.clone();
+    merged.extend(vec2.clone());
+    merged
+}
+
+fn main() {
+    let vec1 = vec![1, 2, 3];
+    let vec2 = vec![4, 5, 6];
+    let merged_ints = merge_vectors(vec1, vec2);
     
-    let large_vector: Vec<i32> = (0..1000).collect();
-    let max_large = large_vector.iter().cloned().max().unwrap();
-    println!("The maximum value in large vector is: {}", max_large);
+    let vec3 = vec!["apple", "banana"];
+    let vec4 = vec!["cherry", "date"];
+    let merged_strings = merge_vectors(vec3, vec4);
     
-    let duplicate_vector = vec![1, 2, 3, 2, 1];
-    let max_duplicates = duplicate_vector.iter().cloned().max().unwrap();
-    println!("The maximum value in duplicate vector is: {}", max_duplicates);
+    let vec5 = vec![1.1, 2.2];
+    let vec6 = vec![3.3, 4.4];
+    let merged_floats = merge_vectors(vec5, vec6);
     
-    let float_vector = vec![1.1, 2.2, 3.3, 2.2, 1.1];
-    let max_float = float_vector.iter().cloned().fold(f32::MIN, f32::max);
-    println!("The maximum value in float vector is: {}", max_float);
+    let vec7 = vec![true, false];
+    let vec8 = vec![false, true];
+    let merged_bools = merge_vectors(vec7, vec8);
     
-    let large_float_vector: Vec<f64> = (0..1000).map(|x| x as f64 * 1.1).collect();
-    let max_large_float = large_float_vector.iter().cloned().max().unwrap();
-    println!("The maximum value in large float vector is: {}", max_large_float);
+    println!("{:?}", merged_ints);
+    println!("{:?}", merged_strings);
+    println!("{:?}", merged_floats);
+    println!("{:?}", merged_bools);
 }
