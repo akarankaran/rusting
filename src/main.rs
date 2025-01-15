@@ -1,15 +1,16 @@
-use std::vec::Vec;
+use std::io;
 
 fn main() {
-    let array: Vec<Vec<i32>> = vec![
-        vec![1, 2, 3],
-        vec![4, 5, 6],
-        vec![7, 8, 9],
-    ];
+    let mut input = String::new();
+    io::stdin().read_line(&mut input).unwrap();
+    let numbers: Vec<f64> = input.split_whitespace()
+        .filter_map(|s| s.parse().ok())
+        .collect();
+    let average = calculate_average(&numbers);
+    println!("Average: {}", average);
+}
 
-    for row in array.iter() {
-        for &element in row.iter() {
-            println!("{}", element);
-        }
-    }
+fn calculate_average(numbers: &[f64]) -> f64 {
+    let sum: f64 = numbers.iter().sum();
+    sum / numbers.len() as f64
 }
