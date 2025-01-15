@@ -1,33 +1,27 @@
 use std::collections::HashSet;
 
 fn main() {
-    let array1 = vec![1, 2, 3, 4, 5];
-    let array2 = vec![4, 5, 6, 7, 8];
-    let common: HashSet<_> = array1.iter().cloned().collect();
-    let result: Vec<_> = array2.iter().filter(|&&x| common.contains(&x)).collect();
-    println!("{:?}", result);
+    let input_array = vec![1, 2, 3, 3, 4, 5, 2, 1];
+    let unique_array: Vec<i32> = input_array.into_iter().collect::<HashSet<_>>().into_iter().collect();
+    println!("{:?}", unique_array);
 
-    let array3 = vec!["apple", "banana", "cherry"];
-    let array4 = vec!["cherry", "date", "fig", "banana"];
-    let common_fruits: HashSet<_> = array3.iter().cloned().collect();
-    let result_fruits: Vec<_> = array4.iter().filter(|&&x| common_fruits.contains(&x)).collect();
-    println!("{:?}", result_fruits);
+    let input_array2 = vec!["apple", "banana", "apple", "orange", "banana"];
+    let unique_array2: Vec<&str> = input_array2.into_iter().collect::<HashSet<_>>().into_iter().collect();
+    println!("{:?}", unique_array2);
 
-    let array5 = vec![1.0, 2.0, 3.0];
-    let array6 = vec![3.0, 4.0, 5.0, 1.0];
-    let common_floats: HashSet<_> = array5.iter().cloned().collect();
-    let result_floats: Vec<_> = array6.iter().filter(|&&x| common_floats.contains(&x)).collect();
-    println!("{:?}", result_floats);
+    let input_array3 = vec![true, false, true, true, false];
+    let unique_array3: Vec<bool> = input_array3.into_iter().collect::<HashSet<_>>().into_iter().collect();
+    println!("{:?}", unique_array3);
+    
+    let input_array4: Vec<char> = vec!['a', 'b', 'a', 'c', 'b', 'd'];
+    let unique_array4: Vec<char> = input_array4.into_iter().collect::<HashSet<_>>().into_iter().collect();
+    println!("{:?}", unique_array4);
 
-    let array7 = vec![true, false, true];
-    let array8 = vec![false, true];
-    let common_bools: HashSet<_> = array7.iter().cloned().collect();
-    let result_bools: Vec<_> = array8.iter().filter(|&&x| common_bools.contains(&x)).collect();
-    println!("{:?}", result_bools);
+    let input_array5: Vec<f64> = vec![3.14, 2.71, 3.14, 1.41, 2.71];
+    let unique_array5: Vec<f64> = input_array5.into_iter().collect::<HashSet<_>>().into_iter().collect();
+    println!("{:?}", unique_array5);
 
-    let array9 = vec!["red", "green", "blue"];
-    let array10 = vec!["yellow", "green", "red"];
-    let common_colors: HashSet<_> = array9.iter().cloned().collect();
-    let result_colors: Vec<_> = array10.iter().filter(|&&x| common_colors.contains(&x)).collect();
-    println!("{:?}", result_colors);
+    let input_array6: Vec<i32> = (1..=10).cycle().take(20).collect();
+    let unique_array6: Vec<i32> = input_array6.into_iter().collect::<HashSet<_>>().into_iter().collect();
+    println!("{:?}", unique_array6);
 }
