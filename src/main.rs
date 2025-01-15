@@ -1,35 +1,41 @@
-use std::cmp::PartialEq;
-
-fn arrays_equal<T: PartialEq>(arr1: &[T], arr2: &[T]) -> bool {
-    arr1 == arr2
-}
-
 fn main() {
-    let array1 = [1, 2, 3, 4];
-    let array2 = [1, 2, 3, 4];
-    let array3 = [1, 2, 3];
+    let array1 = [1, 2, 3];
+    let array2 = [4, 5, 6];
+    let merged: Vec<i32> = array1.iter().cloned().chain(array2.iter().cloned()).collect();
+    println!("{:?}", merged);
     
-    println!("Are array1 and array2 equal? {}", arrays_equal(&array1, &array2));
-    println!("Are array1 and array3 equal? {}", arrays_equal(&array1, &array3));
+    let array1 = ["apple", "banana"];
+    let array2 = ["orange", "pear"];
+    let merged_fruits: Vec<&str> = array1.iter().cloned().chain(array2.iter().cloned()).collect();
+    println!("{:?}", merged_fruits);
 
-    let array4 = ["hello", "world"];
-    let array5 = ["hello", "world"];
-    let array6 = ["hello", "Rust"];
+    let array1 = [true, false];
+    let array2 = [false, true];
+    let merged_bools: Vec<bool> = array1.iter().cloned().chain(array2.iter().cloned()).collect();
+    println!("{:?}", merged_bools);
 
-    println!("Are array4 and array5 equal? {}", arrays_equal(&array4, &array5));
-    println!("Are array4 and array6 equal? {}", arrays_equal(&array4, &array6));
-
-    let array7 = [true, false, true];
-    let array8 = [true, false, true];
-    let array9 = [true, true, false];
-
-    println!("Are array7 and array8 equal? {}", arrays_equal(&array7, &array8));
-    println!("Are array7 and array9 equal? {}", arrays_equal(&array7, &array9));
-
-    let array10: Vec<i32> = vec![1, 2, 3];
-    let array11: Vec<i32> = vec![1, 2, 3];
-    let array12: Vec<i32> = vec![1, 2];
-
-    println!("Are array10 and array11 equal? {}", arrays_equal(&array10, &array11));
-    println!("Are array10 and array12 equal? {}", arrays_equal(&array10, &array12));
+    let mut array1 = vec![1, 2, 3];
+    let array2 = vec![4, 5, 6];
+    array1.extend(array2);
+    println!("{:?}", array1);
+    
+    let array1 = [1.1, 2.2, 3.3];
+    let array2 = [4.4, 5.5];
+    let merged_floats: Vec<f64> = array1.iter().cloned().chain(array2.iter().cloned()).collect();
+    println!("{:?}", merged_floats);
+    
+    let array1 = ['a', 'b'];
+    let array2 = ['c', 'd', 'e'];
+    let merged_chars: Vec<char> = array1.iter().cloned().chain(array2.iter().cloned()).collect();
+    println!("{:?}", merged_chars);
+    
+    let array1: [i32; 0] = [];
+    let array2 = [7, 8, 9];
+    let merged_empty: Vec<i32> = array1.iter().cloned().chain(array2.iter().cloned()).collect();
+    println!("{:?}", merged_empty);
+    
+    let array1 = ["rust", "is"];
+    let array2 = ["awesome"];
+    let merged_strings: Vec<&str> = array1.iter().cloned().chain(array2.iter().cloned()).collect();
+    println!("{:?}", merged_strings);
 }
