@@ -1,73 +1,25 @@
-use std::io;
-
-struct Account {
-    balance: f64,
-}
-
-impl Account {
-    fn new(initial_balance: f64) -> Self {
-        Account { balance: initial_balance }
-    }
-    
-    fn deposit(&mut self, amount: f64) -> Result<(), String> {
-        if amount <= 0.0 {
-            return Err("Deposit amount must be positive.".to_string());
-        }
-        self.balance += amount;
-        Ok(())
-    }
-
-    fn withdraw(&mut self, amount: f64) -> Result<(), String> {
-        if amount <= 0.0 {
-            return Err("Withdrawal amount must be positive.".to_string());
-        }
-        if amount > self.balance {
-            return Err("Insufficient funds.".to_string());
-        }
-        self.balance -= amount;
-        Ok(())
-    }
-
-    fn get_balance(&self) -> f64 {
-        self.balance
-    }
+fn sum_slice(slice: &[i32]) -> i32 {
+    slice.iter().sum()
 }
 
 fn main() {
-    let mut account = Account::new(1000.0);
-    loop {
-        println!("Current balance: {}", account.get_balance());
-        println!("Choose an action: 1) Deposit 2) Withdraw 3) Exit");
-        let mut choice = String::new();
-        io::stdin().read_line(&mut choice).unwrap();
-        let choice: u32 = choice.trim().parse().unwrap_or(0);
-        
-        match choice {
-            1 => {
-                let mut amount = String::new();
-                println!("Enter deposit amount:");
-                io::stdin().read_line(&mut amount).unwrap();
-                let amount: f64 = amount.trim().parse().unwrap_or(0.0);
-                match account.deposit(amount) {
-                    Ok(_) => println!("Deposited: {}", amount),
-                    Err(e) => println!("Error: {}", e),
-                }
-            }
-            2 => {
-                let mut amount = String::new();
-                println!("Enter withdrawal amount:");
-                io::stdin().read_line(&mut amount).unwrap();
-                let amount: f64 = amount.trim().parse().unwrap_or(0.0);
-                match account.withdraw(amount) {
-                    Ok(_) => println!("Withdrawn: {}", amount),
-                    Err(e) => println!("Error: {}", e),
-                }
-            }
-            3 => {
-                println!("Exiting. Final balance: {}", account.get_balance());
-                break;
-            }
-            _ => println!("Invalid choice. Please try again."),
-        }
-    }
+    let arr = [1, 2, 3, 4, 5];
+    let slice = &arr[1..4];
+    let result = sum_slice(slice);
+    println!("The sum of the slice is: {}", result);
+
+    let arr2 = [10, 20, 30, 40, 50];
+    let slice2 = &arr2[0..2];
+    let result2 = sum_slice(slice2);
+    println!("The sum of the second slice is: {}", result2);
+
+    let arr3: [i32; 0] = [];
+    let slice3 = &arr3[0..0];
+    let result3 = sum_slice(slice3);
+    println!("The sum of the empty slice is: {}", result3);
+
+    let arr4 = [5, 10, 15, 20, 25, 30];
+    let slice4 = &arr4[2..];
+    let result4 = sum_slice(slice4);
+    println!("The sum of the last part of the array is: {}", result4);
 }
