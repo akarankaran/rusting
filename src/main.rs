@@ -1,55 +1,43 @@
+use std::collections::HashMap;
+
 fn main() {
-    let some_value: Option<Option<i32>> = Some(Some(10));
-    match some_value {
-        Some(Some(x)) => println!("Value: {}", x),
-        Some(None) => println!("Inner option is None."),
-        None => println!("Outer option is None."),
-    }
+    let encoded_message = "72 101 108 108 111 32 87 111 114 108 100";
+    let decoded_message = decode_message(encoded_message);
+    println!("{}", decoded_message);
+}
 
-    let none_value: Option<Option<i32>> = Some(None);
-    match none_value {
-        Some(Some(x)) => println!("Value: {}", x),
-        Some(None) => println!("Inner option is None."),
-        None => println!("Outer option is None."),
+fn decode_message(encoded: &str) -> String {
+    let mut decoded = String::new();
+    for number in encoded.split_whitespace() {
+        if let Ok(ascii) = number.parse::<u8>() {
+            decoded.push(ascii as char);
+        }
     }
+    decoded
+}
 
-    let another_value: Option<Option<i32>> = None;
-    match another_value {
-        Some(Some(x)) => println!("Value: {}", x),
-        Some(None) => println!("Inner option is None."),
-        None => println!("Outer option is None."),
+fn example_patterns() {
+    let patterns: HashMap<&str, &str> = [
+        ("72", "H"),
+        ("101", "e"),
+        ("108", "l"),
+        ("111", "o"),
+        ("32", " "),
+        ("87", "W"),
+        ("111", "o"),
+        ("114", "r"),
+        ("108", "l"),
+        ("100", "d"),
+    ].iter().cloned().collect();
+    
+    for (key, value) in &patterns {
+        println!("ASCII: {}, Character: {}", key, value);
     }
+}
 
-    let empty_value: Option<Option<i32>> = Some(None);
-    if let Some(Some(x)) = empty_value {
-        println!("Value: {}", x);
-    } else if let Some(None) = empty_value {
-        println!("Inner option is None.");
-    } else {
-        println!("Outer option is None.");
-    }
-
-    let deep_value: Option<Option<Option<i32>>> = Some(Some(Some(20)));
-    match deep_value {
-        Some(Some(Some(x))) => println!("Deep Value: {}", x),
-        Some(Some(None)) => println!("Second inner option is None."),
-        Some(None) => println!("First inner option is None."),
-        None => println!("Outer option is None."),
-    }
-
-    let complex_option: Option<Option<Option<i32>>> = None;
-    match complex_option {
-        Some(Some(Some(x))) => println!("Deep Value: {}", x),
-        Some(Some(None)) => println!("Second inner option is None."),
-        Some(None) => println!("First inner option is None."),
-        None => println!("Outer option is None."),
-    }
-
-    let mixed_option: Option<Option<Option<i32>>> = Some(None);
-    match mixed_option {
-        Some(Some(Some(x))) => println!("Deep Value: {}", x),
-        Some(Some(None)) => println!("Second inner option is None."),
-        Some(None) => println!("First inner option is None."),
-        None => println!("Outer option is None."),
-    }
+fn advanced_decoding(encoded: &str) -> String {
+    encoded.split_whitespace()
+           .filter_map(|s| s.parse::<u8>().ok())
+           .map(|ascii| ascii as char)
+           .collect()
 }
