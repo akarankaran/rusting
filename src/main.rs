@@ -1,41 +1,45 @@
-use std::fmt;
+fn main() {
+    let some_value = Some(10);
+    if let Some(val) = some_value {
+        println!("Value is: {}", val);
+    }
 
-enum Vehicle {
-    Car { make: String, model: String, year: u16 },
-    Truck { make: String, model: String, payload_capacity: u32 },
-    Motorcycle { make: String, model: String, year: u16, has_sidecar: bool },
-}
+    let none_value: Option<i32> = None;
+    if let Some(val) = none_value {
+        println!("This won't print: {}", val);
+    } else {
+        println!("No value found.");
+    }
 
-impl fmt::Display for Vehicle {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        match self {
-            Vehicle::Car { make, model, year } => write!(f, "Car: {} {} ({})", make, model, year),
-            Vehicle::Truck { make, model, payload_capacity } => write!(f, "Truck: {} {} (Capacity: {} kg)", make, model, payload_capacity),
-            Vehicle::Motorcycle { make, model, year, has_sidecar } => write!(f, "Motorcycle: {} {} ({}) - Sidecar: {}", make, model, year, has_sidecar),
+    let some_string = Some("Hello");
+    if let Some(text) = some_string {
+        println!("{}", text);
+    }
+
+    let none_string: Option<&str> = None;
+    if let Some(text) = none_string {
+        println!("{}", text);
+    } else {
+        println!("No text found.");
+    }
+
+    let some_float: Option<f64> = Some(3.14);
+    if let Some(num) = some_float {
+        println!("Float value: {}", num);
+    }
+
+    let arr: [Option<i32>; 5] = [Some(1), None, Some(2), None, Some(3)];
+    for item in arr.iter() {
+        if let Some(value) = item {
+            println!("Array value: {}", value);
         }
     }
-}
 
-fn describe_vehicle(vehicle: Vehicle) {
-    match vehicle {
-        Vehicle::Car { make, model, year } => println!("This is a {} {} from {}.", make, model, year),
-        Vehicle::Truck { make, model, payload_capacity } => println!("This is a {} {} with a payload capacity of {} kg.", make, model, payload_capacity),
-        Vehicle::Motorcycle { make, model, year, has_sidecar } => {
-            let sidecar_status = if has_sidecar { "with" } else { "without" };
-            println!("This is a {} {} from {} {} sidecar.", make, model, year, sidecar_status);
-        },
-    }
-}
-
-fn main() {
-    let vehicles = vec![
-        Vehicle::Car { make: String::from("Toyota"), model: String::from("Corolla"), year: 2020 },
-        Vehicle::Truck { make: String::from("Ford"), model: String::from("F-150"), payload_capacity: 1000 },
-        Vehicle::Motorcycle { make: String::from("Harley-Davidson"), model: String::from("Sportster"), year: 2021, has_sidecar: true },
-    ];
-    
-    for vehicle in vehicles {
-        println!("{}", vehicle);
-        describe_vehicle(vehicle);
+    let map = std::collections::HashMap::new();
+    let some_key = "key";
+    if let Some(value) = map.get(some_key) {
+        println!("Found in map: {}", value);
+    } else {
+        println!("Key not found in map.");
     }
 }
