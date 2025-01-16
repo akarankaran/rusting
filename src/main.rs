@@ -1,35 +1,23 @@
+use std::collections::HashMap;
+
 fn main() {
-    let value = true;
+    let words = vec!["apple", "banana", "cherry", "date", "elderberry"];
+    let target = "cherry";
 
-    match value {
-        true => println!("Yes"),
-        false => println!("No"),
+    for &word in &words {
+        match word {
+            w if w == target => println!("Found: {}", w),
+            _ => {}
+        }
     }
 
-    let another_value = false;
-
-    if another_value {
-        println!("Yes");
-    } else {
-        println!("No");
+    let mut word_map: HashMap<String, usize> = HashMap::new();
+    for word in words {
+        *word_map.entry(word.to_string()).or_insert(0) += 1;
     }
 
-    let conditional_value = 5 > 3;
-
-    println!("{}", if conditional_value { "Yes" } else { "No" });
-
-    let is_ready = true;
-
-    match is_ready {
-        true => println!("Yes"),
-        _ => println!("No"),
-    }
-
-    let check_value: bool = std::env::args().nth(1).unwrap_or_else(|| "false".to_string()).parse().unwrap();
-
-    if check_value {
-        println!("Yes");
-    } else {
-        println!("No");
+    match word_map.get(target) {
+        Some(&count) => println!("'{}' appears {} time(s)", target, count),
+        None => println!("'{}' not found", target),
     }
 }
