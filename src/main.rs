@@ -1,41 +1,55 @@
 fn main() {
-    let values: Vec<Option<i32>> = vec![Some(1), None, Some(3), Some(4), None, Some(6)];
-
-    let mut iter = values.iter();
-
-    while let Some(&Some(value)) = iter.next() {
-        println!("Processing value: {}", value);
+    let some_value: Option<Option<i32>> = Some(Some(10));
+    match some_value {
+        Some(Some(x)) => println!("Value: {}", x),
+        Some(None) => println!("Inner option is None."),
+        None => println!("Outer option is None."),
     }
 
-    let mut iter2 = values.iter();
-
-    while let Some(maybe_value) = iter2.next() {
-        if let Some(value) = maybe_value {
-            println!("Value found: {}", value);
-        } else {
-            println!("No value present.");
-        }
+    let none_value: Option<Option<i32>> = Some(None);
+    match none_value {
+        Some(Some(x)) => println!("Value: {}", x),
+        Some(None) => println!("Inner option is None."),
+        None => println!("Outer option is None."),
     }
 
-    let mut count = 0;
-
-    while let Some(value) = values.get(count) {
-        match value {
-            Some(num) => println!("Value at index {}: {}", count, num),
-            None => println!("No value at index {}", count),
-        }
-        count += 1;
+    let another_value: Option<Option<i32>> = None;
+    match another_value {
+        Some(Some(x)) => println!("Value: {}", x),
+        Some(None) => println!("Inner option is None."),
+        None => println!("Outer option is None."),
     }
 
-    let mut non_none_count = 0;
-    let mut non_none_values = vec![];
-
-    while let Some(&current) = values.get(non_none_count) {
-        if let Some(val) = current {
-            non_none_values.push(val);
-        }
-        non_none_count += 1;
+    let empty_value: Option<Option<i32>> = Some(None);
+    if let Some(Some(x)) = empty_value {
+        println!("Value: {}", x);
+    } else if let Some(None) = empty_value {
+        println!("Inner option is None.");
+    } else {
+        println!("Outer option is None.");
     }
 
-    println!("All non-none values: {:?}", non_none_values);
+    let deep_value: Option<Option<Option<i32>>> = Some(Some(Some(20)));
+    match deep_value {
+        Some(Some(Some(x))) => println!("Deep Value: {}", x),
+        Some(Some(None)) => println!("Second inner option is None."),
+        Some(None) => println!("First inner option is None."),
+        None => println!("Outer option is None."),
+    }
+
+    let complex_option: Option<Option<Option<i32>>> = None;
+    match complex_option {
+        Some(Some(Some(x))) => println!("Deep Value: {}", x),
+        Some(Some(None)) => println!("Second inner option is None."),
+        Some(None) => println!("First inner option is None."),
+        None => println!("Outer option is None."),
+    }
+
+    let mixed_option: Option<Option<Option<i32>>> = Some(None);
+    match mixed_option {
+        Some(Some(Some(x))) => println!("Deep Value: {}", x),
+        Some(Some(None)) => println!("Second inner option is None."),
+        Some(None) => println!("First inner option is None."),
+        None => println!("Outer option is None."),
+    }
 }
