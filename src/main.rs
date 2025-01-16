@@ -1,63 +1,72 @@
-use std::vec::Vec;
+use std::fmt;
+
+enum Expression {
+    Number(i32),
+    Add(Box<Expression>, Box<Expression>),
+    Subtract(Box<Expression>, Box<Expression>),
+    Multiply(Box<Expression>, Box<Expression>),
+    Divide(Box<Expression>, Box<Expression>),
+}
+
+impl fmt::Display for Expression {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Expression::Number(n) => write!(f, "{}", n),
+            Expression::Add(left, right) => write!(f, "({} + {})", left, right),
+            Expression::Subtract(left, right) => write!(f, "({} - {})", left, right),
+            Expression::Multiply(left, right) => write!(f, "({} * {})", left, right),
+            Expression::Divide(left, right) => write!(f, "({} / {})", left, right),
+        }
+    }
+}
+
+fn evaluate(expr: &Expression) -> f32 {
+    match expr {
+        Expression::Number(n) => *n as f32,
+        Expression::Add(left, right) => evaluate(left) + evaluate(right),
+        Expression::Subtract(left, right) => evaluate(left) - evaluate(right),
+        Expression::Multiply(left, right) => evaluate(left) * evaluate(right),
+        Expression::Divide(left, right) => evaluate(left) / evaluate(right),
+    }
+}
 
 fn main() {
-    let vec1 = vec![1, 2, 3];
-    let vec2 = vec![1, 2, 4];
+    let expression = Expression::Add(
+        Box::new(Expression::Multiply(
+            Box::new(Expression::Number(4)),
+            Box::new(Expression::Number(5)),
+        )),
+        Box::new(Expression::Subtract(
+            Box::new(Expression::Number(10)),
+            Box::new(Expression::Number(2)),
+        )),
+    );
 
-    let result: Vec<String> = vec1.iter().zip(vec2.iter())
-        .map(|(a, b)| match a.cmp(b) {
-            std::cmp::Ordering::Less => format!("{} is less than {}", a, b),
-            std::cmp::Ordering::Greater => format!("{} is greater than {}", a, b),
-            std::cmp::Ordering::Equal => format!("{} is equal to {}", a, b),
-        })
-        .collect();
+    println!("Expression: {}", expression);
+    println!("Result: {}", evaluate(&expression));
 
-    for res in result {
-        println!("{}", res);
-    }
+    let expression2 = Expression::Divide(
+        Box::new(Expression::Number(20)),
+        Box::new(Expression::Add(
+            Box::new(Expression::Number(4)),
+            Box::new(Expression::Number(1)),
+        )),
+    );
 
-    let vec3 = vec![3, 3, 3];
-    let vec4 = vec![3, 3, 3];
+    println!("Expression: {}", expression2);
+    println!("Result: {}", evaluate(&expression2));
 
-    let result2: Vec<String> = vec3.iter().zip(vec4.iter())
-        .map(|(a, b)| match a.cmp(b) {
-            std::cmp::Ordering::Less => format!("{} is less than {}", a, b),
-            std::cmp::Ordering::Greater => format!("{} is greater than {}", a, b),
-            std::cmp::Ordering::Equal => format!("{} is equal to {}", a, b),
-        })
-        .collect();
+    let expression3 = Expression::Subtract(
+        Box::new(Expression::Add(
+            Box::new(Expression::Number(6)),
+            Box::new(Expression::Number(4)),
+        )),
+        Box::new(Expression::Multiply(
+            Box::new(Expression::Number(2)),
+            Box::new(Expression::Number(5)),
+        )),
+    );
 
-    for res in result2 {
-        println!("{}", res);
-    }
-
-    let vec5 = vec!['a', 'b', 'c'];
-    let vec6 = vec!['a', 'b', 'd'];
-
-    let result3: Vec<String> = vec5.iter().zip(vec6.iter())
-        .map(|(a, b)| match a.cmp(b) {
-            std::cmp::Ordering::Less => format!("{} is less than {}", a, b),
-            std::cmp::Ordering::Greater => format!("{} is greater than {}", a, b),
-            std::cmp::Ordering::Equal => format!("{} is equal to {}", a, b),
-        })
-        .collect();
-
-    for res in result3 {
-        println!("{}", res);
-    }
-
-    let vec7 = vec![true, false, true];
-    let vec8 = vec![false, false, true];
-
-    let result4: Vec<String> = vec7.iter().zip(vec8.iter())
-        .map(|(a, b)| match a.cmp(b) {
-            std::cmp::Ordering::Less => format!("{:?} is less than {:?}", a, b),
-            std::cmp::Ordering::Greater => format!("{:?} is greater than {:?}", a, b),
-            std::cmp::Ordering::Equal => format!("{:?} is equal to {:?}", a, b),
-        })
-        .collect();
-
-    for res in result4 {
-        println!("{}", res);
-    }
+    println!("Expression: {}", expression3);
+    println!("Result: {}", evaluate(&expression3));
 }
