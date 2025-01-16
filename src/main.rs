@@ -1,36 +1,41 @@
 fn main() {
-    let number = 7;
+    let values: Vec<Option<i32>> = vec![Some(1), None, Some(3), Some(4), None, Some(6)];
 
-    let category = match number {
-        1..=10 => "Low",
-        11..=20 => "Medium",
-        21..=30 => "High",
-        _ => "Out of range",
-    };
+    let mut iter = values.iter();
 
-    println!("The number {} is categorized as: {}", number, category);
-
-    let numbers = vec![3, 15, 25, 35];
-
-    for &num in &numbers {
-        let status = match num {
-            1..=10 => "Low",
-            11..=20 => "Medium",
-            21..=30 => "High",
-            _ => "Out of range",
-        };
-        println!("The number {} is categorized as: {}", num, status);
+    while let Some(&Some(value)) = iter.next() {
+        println!("Processing value: {}", value);
     }
 
-    let ranges = vec![(5, "Low"), (15, "Medium"), (25, "High"), (35, "Out of range")];
+    let mut iter2 = values.iter();
 
-    for (num, expected) in ranges {
-        let result = match num {
-            1..=10 => "Low",
-            11..=20 => "Medium",
-            21..=30 => "High",
-            _ => "Out of range",
-        };
-        assert_eq!(result, expected);
+    while let Some(maybe_value) = iter2.next() {
+        if let Some(value) = maybe_value {
+            println!("Value found: {}", value);
+        } else {
+            println!("No value present.");
+        }
     }
+
+    let mut count = 0;
+
+    while let Some(value) = values.get(count) {
+        match value {
+            Some(num) => println!("Value at index {}: {}", count, num),
+            None => println!("No value at index {}", count),
+        }
+        count += 1;
+    }
+
+    let mut non_none_count = 0;
+    let mut non_none_values = vec![];
+
+    while let Some(&current) = values.get(non_none_count) {
+        if let Some(val) = current {
+            non_none_values.push(val);
+        }
+        non_none_count += 1;
+    }
+
+    println!("All non-none values: {:?}", non_none_values);
 }
