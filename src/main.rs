@@ -1,23 +1,39 @@
 fn main() {
-    let result: Result<i32, Box<dyn std::error::Error>> = do_something();
-
-    match result {
-        Ok(value) => println!("Success: {}", value),
-        Err(e) => match e.downcast_ref::<std::io::Error>() {
-            Some(io_error) => println!("IO Error: {}", io_error),
-            None => match e.downcast_ref::<std::num::ParseIntError>() {
-                Some(parse_error) => println!("Parse Error: {}", parse_error),
-                None => match e.downcast_ref::<String>() {
-                    Some(string_error) => println!("String Error: {}", string_error),
-                    None => println!("Unknown Error: {}", e),
-                },
-            },
-        },
+    let tuple1 = (1, "Hello", 3.14);
+    match tuple1 {
+        (x, y, z) => {
+            println!("Integer: {}, String: {}, Float: {}", x, y, z);
+        }
     }
-}
 
-fn do_something() -> Result<i32, Box<dyn std::error::Error>> {
-    let num: &str = "42a";
-    let parsed: i32 = num.parse()?;
-    Ok(parsed)
+    let tuple2 = (true, 'R', 42);
+    match tuple2 {
+        (a, b, c) => {
+            println!("Boolean: {}, Char: {}, Number: {}", a, b, c);
+        }
+    }
+
+    let tuple3 = (String::from("Rust"), 7);
+    match tuple3 {
+        (s, n) => {
+            println!("String: {}, Integer: {}", s, n);
+        }
+    }
+
+    let tuple4 = (0.5, "Match", true);
+    match tuple4 {
+        (f, str, b) => {
+            println!("Float: {}, String: {}, Boolean: {}", f, str, b);
+        }
+    }
+
+    let tuple5 = (10, 20, 30);
+    match tuple5 {
+        (a, b, c) if a + b + c > 50 => {
+            println!("Sum is greater than 50: {}", a + b + c);
+        }
+        (a, b, c) => {
+            println!("Sum is 50 or less: {}", a + b + c);
+        }
+    }
 }
