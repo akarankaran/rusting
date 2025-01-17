@@ -1,47 +1,36 @@
-use std::fs::File;
-use std::io::{self, Read};
-use std::num::ParseIntError;
-
-fn read_file_content(file_path: &str) -> Result<String, io::Error> {
-    let mut file = File::open(file_path)?;
-    let mut content = String::new();
-    file.read_to_string(&mut content)?;
-    Ok(content)
-}
-
-fn parse_integer(input: &str) -> Result<i32, ParseIntError> {
-    input.parse::<i32>()
-}
-
 fn main() {
-    match read_file_content("example.txt") {
-        Ok(content) => println!("File content: {}", content),
-        Err(e) => eprintln!("Error reading file: {}", e),
+    let ages = vec![12, 15, 20, 25, 35, 60];
+
+    for age in ages {
+        let label = match age {
+            0..=12 => "Child",
+            13..=19 => "Teen",
+            20..=34 => "Adult",
+            35..=64 => "Middle-aged",
+            _ => "Senior",
+        };
+        println!("Age: {}, Label: {}", age, label);
     }
 
-    let inputs = vec!["42", "not a number", "100"];
+    let ranges = vec![(0..=5, "Infant"), (6..=12, "Child"), (13..=17, "Teen"), (18..=64, "Adult"), (65..=100, "Senior")];
 
-    for input in inputs {
-        match parse_integer(input) {
-            Ok(num) => println!("Parsed number: {}", num),
-            Err(e) => eprintln!("Failed to parse '{}': {}", input, e),
+    let age_check = 8;
+    for (range, label) in ranges {
+        if range.contains(&age_check) {
+            println!("Age: {}, Label: {}", age_check, label);
         }
     }
 
-    let division = |num: i32| -> Result<i32, &'static str> {
-        if num == 0 {
-            Err("Attempted to divide by zero")
-        } else {
-            Ok(42 / num)
-        }
-    };
+    let ages_with_labels = vec![(11, "Child"), (16, "Teen"), (23, "Adult"), (40, "Middle-aged"), (70, "Senior")];
 
-    let numbers = vec![2, 0, 7];
-
-    for number in numbers {
-        match division(number) {
-            Ok(result) => println!("Division result: {}", result),
-            Err(e) => eprintln!("Error: {}", e),
-        }
+    for (age, expected_label) in ages_with_labels {
+        let result_label = match age {
+            0..=12 => "Child",
+            13..=19 => "Teen",
+            20..=34 => "Adult",
+            35..=64 => "Middle-aged",
+            _ => "Senior",
+        };
+        println!("Age: {}, Expected: {}, Result: {}", age, expected_label, result_label);
     }
 }
