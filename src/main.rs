@@ -1,27 +1,38 @@
 use std::collections::HashSet;
 
 fn main() {
-    let set1: HashSet<i32> = [1, 2, 3, 4, 5].iter().cloned().collect();
-    let set2: HashSet<i32> = [3, 4, 5, 6, 7].iter().cloned().collect();
+    let set1: HashSet<i32> = vec![1, 2, 3, 4].into_iter().collect();
+    let set2: HashSet<i32> = vec![3, 4, 5, 6].into_iter().collect();
     
-    let intersection: HashSet<_> = set1.intersection(&set2).collect();
-    println!("Intersection: {:?}", intersection);
-
-    let set3: HashSet<&str> = ["apple", "banana", "cherry"].iter().cloned().collect();
-    let set4: HashSet<&str> = ["banana", "kiwi", "mango"].iter().cloned().collect();
+    let union: HashSet<_> = set1.union(&set2).cloned().collect();
     
-    let intersection_str: HashSet<_> = set3.intersection(&set4).collect();
-    println!("Intersection of strings: {:?}", intersection_str);
-
-    let set5: HashSet<f64> = [1.1, 2.2, 3.3].iter().cloned().collect();
-    let set6: HashSet<f64> = [2.2, 3.3, 4.4].iter().cloned().collect();
+    println!("{:?}", union);
     
-    let intersection_f64: HashSet<_> = set5.intersection(&set6).collect();
-    println!("Intersection of floats: {:?}", intersection_f64);
-
-    let set7: HashSet<String> = ["rust", "go", "python"].iter().map(|s| s.to_string()).collect();
-    let set8: HashSet<String> = ["python", "java", "rust"].iter().map(|s| s.to_string()).collect();
+    let set3: HashSet<&str> = vec!["apple", "banana", "cherry"].into_iter().collect();
+    let set4: HashSet<&str> = vec!["banana", "date", "fig"].into_iter().collect();
     
-    let intersection_string: HashSet<_> = set7.intersection(&set8).collect();
-    println!("Intersection of String: {:?}", intersection_string);
+    let union_str: HashSet<_> = set3.union(&set4).cloned().collect();
+    
+    println!("{:?}", union_str);
+    
+    let set5: HashSet<f64> = vec![1.1, 2.2, 3.3].into_iter().collect();
+    let set6: HashSet<f64> = vec![2.2, 3.3, 4.4].into_iter().collect();
+    
+    let union_float: HashSet<_> = set5.union(&set6).cloned().collect();
+    
+    println!("{:?}", union_float);
+    
+    let set7: HashSet<&str> = HashSet::new();
+    let set8: HashSet<&str> = vec!["one", "two", "three"].into_iter().collect();
+    
+    let union_empty: HashSet<_> = set7.union(&set8).cloned().collect();
+    
+    println!("{:?}", union_empty);
+    
+    let set9: HashSet<i32> = vec![].into_iter().collect();
+    let set10: HashSet<i32> = vec![10, 20, 30].into_iter().collect();
+    
+    let union_empty_set: HashSet<_> = set9.union(&set10).cloned().collect();
+    
+    println!("{:?}", union_empty_set);
 }
