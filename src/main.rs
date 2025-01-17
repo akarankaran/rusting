@@ -1,15 +1,29 @@
 use std::collections::HashMap;
 
 fn main() {
-    let text = "Hello world Hello Rust Rust is amazing Rust is fast";
-    let mut word_count = HashMap::new();
-
-    for word in text.split_whitespace() {
-        let count = word_count.entry(word.to_string()).or_insert(0);
-        *count += 1;
+    let mut map = HashMap::new();
+    map.insert("a", 1);
+    map.insert("b", 2);
+    map.insert("c", 3);
+    
+    let key_to_remove = "b";
+    map.remove(key_to_remove);
+    
+    for (key, value) in &map {
+        println!("{}: {}", key, value);
     }
 
-    for (word, count) in &word_count {
-        println!("{}: {}", word, count);
+    let key_to_remove_2 = "d";
+    map.remove(key_to_remove_2);
+
+    let new_key = "e";
+    map.insert(new_key, 5);
+
+    map.retain(|&k, _| k != "a");
+
+    if let Some(value) = map.get("c") {
+        println!("Found value: {}", value);
     }
+
+    map.clear();
 }
