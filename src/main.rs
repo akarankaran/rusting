@@ -1,38 +1,27 @@
 use std::collections::HashSet;
 
 fn main() {
-    let set1: HashSet<i32> = vec![1, 2, 3, 4].into_iter().collect();
-    let set2: HashSet<i32> = vec![3, 4, 5, 6].into_iter().collect();
+    let set_a: HashSet<_> = [1, 2, 3, 4, 5].iter().cloned().collect();
+    let set_b: HashSet<_> = [4, 5, 6, 7, 8].iter().cloned().collect();
     
-    let union: HashSet<_> = set1.union(&set2).cloned().collect();
+    let difference: HashSet<_> = set_a.difference(&set_b).collect();
+    println!("Difference of set_a from set_b: {:?}", difference);
+
+    let set_c: HashSet<_> = ["apple", "banana", "cherry"].iter().cloned().collect();
+    let set_d: HashSet<_> = ["banana", "kiwi", "mango"].iter().cloned().collect();
     
-    println!("{:?}", union);
+    let difference_strings: HashSet<_> = set_c.difference(&set_d).collect();
+    println!("Difference of set_c from set_d: {:?}", difference_strings);
+
+    let set_e: HashSet<_> = [10, 20, 30].iter().cloned().collect();
+    let set_f: HashSet<_> = [1, 10, 20].iter().cloned().collect();
     
-    let set3: HashSet<&str> = vec!["apple", "banana", "cherry"].into_iter().collect();
-    let set4: HashSet<&str> = vec!["banana", "date", "fig"].into_iter().collect();
+    let difference_numeric: HashSet<_> = set_e.difference(&set_f).collect();
+    println!("Difference of set_e from set_f: {:?}", difference_numeric);
+
+    let set_g: HashSet<_> = ["red", "blue", "green"].iter().cloned().collect();
+    let set_h: HashSet<_> = ["yellow", "blue", "purple"].iter().cloned().collect();
     
-    let union_str: HashSet<_> = set3.union(&set4).cloned().collect();
-    
-    println!("{:?}", union_str);
-    
-    let set5: HashSet<f64> = vec![1.1, 2.2, 3.3].into_iter().collect();
-    let set6: HashSet<f64> = vec![2.2, 3.3, 4.4].into_iter().collect();
-    
-    let union_float: HashSet<_> = set5.union(&set6).cloned().collect();
-    
-    println!("{:?}", union_float);
-    
-    let set7: HashSet<&str> = HashSet::new();
-    let set8: HashSet<&str> = vec!["one", "two", "three"].into_iter().collect();
-    
-    let union_empty: HashSet<_> = set7.union(&set8).cloned().collect();
-    
-    println!("{:?}", union_empty);
-    
-    let set9: HashSet<i32> = vec![].into_iter().collect();
-    let set10: HashSet<i32> = vec![10, 20, 30].into_iter().collect();
-    
-    let union_empty_set: HashSet<_> = set9.union(&set10).cloned().collect();
-    
-    println!("{:?}", union_empty_set);
+    let difference_colors: HashSet<_> = set_g.difference(&set_h).collect();
+    println!("Difference of set_g from set_h: {:?}", difference_colors);
 }
