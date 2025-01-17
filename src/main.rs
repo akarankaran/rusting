@@ -1,33 +1,53 @@
 fn main() {
-    let vec1 = vec![1, 2, 3, 4, 5];
-    if let (Some(first), Some(last)) = (vec1.first(), vec1.last()) {
-        println!("First: {}, Last: {}", first, last);
+    let vec_of_tuples = vec![
+        (1, "one"),
+        (2, "two"),
+        (3, "three"),
+        (4, "four"),
+        (5, "five"),
+    ];
+
+    for (num, word) in vec_of_tuples {
+        println!("Number: {}, Word: {}", num, word);
     }
 
-    let vec2: Vec<&str> = vec!["a", "b", "c"];
-    if let (Some(first), Some(last)) = (vec2.first(), vec2.last()) {
-        println!("First: {}, Last: {}", first, last);
+    let mixed_tuples = vec![
+        (1, "apple", true),
+        (2, "banana", false),
+        (3, "cherry", true),
+    ];
+
+    for (id, fruit, is_fruit) in mixed_tuples {
+        if is_fruit {
+            println!("ID: {}, Fruit: {}", id, fruit);
+        }
     }
 
-    let vec3: Vec<f64> = vec![3.14, 1.59, 2.65];
-    if let (Some(first), Some(last)) = (vec3.first(), vec3.last()) {
-        println!("First: {}, Last: {}", first, last);
+    let nested_tuples = vec![
+        ((1, 2), "pair1"),
+        ((3, 4), "pair2"),
+    ];
+
+    for ((a, b), label) in nested_tuples {
+        println!("Tuple: ({}, {}), Label: {}", a, b, label);
     }
 
-    let vec4: Vec<char> = vec!['x', 'y', 'z'];
-    if let (Some(first), Some(last)) = (vec4.first(), vec4.last()) {
-        println!("First: {}, Last: {}", first, last);
+    let processed_tuples: Vec<(i32, String)> = vec![
+        (1, "first".to_string()),
+        (2, "second".to_string()),
+        (3, "third".to_string()),
+    ];
+
+    for (index, text) in processed_tuples.iter().enumerate() {
+        println!("Index: {}, Text: {}", index, text);
     }
 
-    let vec5: Vec<i32> = Vec::new();
-    if let (Some(first), Some(last)) = (vec5.first(), vec5.last()) {
-        println!("First: {}, Last: {}", first, last);
-    } else {
-        println!("Vector is empty");
-    }
+    let transformed_tuples: Vec<(_, _)> = vec![
+        (1.5, "one point five"),
+        (2.5, "two point five"),
+    ];
 
-    let vec6 = (1..=10).collect::<Vec<_>>();
-    if let (Some(first), Some(last)) = (vec6.first(), vec6.last()) {
-        println!("First: {}, Last: {}", first, last);
+    for (num, description) in transformed_tuples.iter() {
+        println!("Float: {}, Description: {}", num, description);
     }
 }
