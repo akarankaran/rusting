@@ -1,39 +1,52 @@
 use std::fmt;
 
-enum Cargo {
-    Wood(u32),
-    Steel(u32),
-    Food(u32),
+enum NestedEnum {
+    Outer(OuterEnum),
 }
 
-impl fmt::Display for Cargo {
+enum OuterEnum {
+    Inner(InnerEnum),
+}
+
+enum InnerEnum {
+    VariantOne,
+    VariantTwo(i32),
+}
+
+impl fmt::Display for NestedEnum {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        match *self {
-            Cargo::Wood(ref amount) => write!(f, "Wood: {} units", amount),
-            Cargo::Steel(ref amount) => write!(f, "Steel: {} units", amount),
-            Cargo::Food(ref amount) => write!(f, "Food: {} units", amount),
+        match self {
+            NestedEnum::Outer(outer) => write!(f, "{}", outer),
         }
     }
 }
 
-fn process_cargo(cargo: Cargo) {
-    match cargo {
-        Cargo::Wood(amount) => println!("Processing {} units of wood", amount),
-        Cargo::Steel(amount) => println!("Processing {} units of steel", amount),
-        Cargo::Food(amount) => println!("Processing {} units of food", amount),
+impl fmt::Display for OuterEnum {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match self {
+            OuterEnum::Inner(inner) => write!(f, "{}", inner),
+        }
+    }
+}
+
+impl fmt::Display for InnerEnum {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match self {
+            InnerEnum::VariantOne => write!(f, "VariantOne"),
+            InnerEnum::VariantTwo(value) => write!(f, "VariantTwo with value {}", value),
+        }
     }
 }
 
 fn main() {
-    let cargo1 = Cargo::Wood(100);
-    let cargo2 = Cargo::Steel(50);
-    let cargo3 = Cargo::Food(200);
+    let nested = NestedEnum::Outer(OuterEnum::Inner(InnerEnum::VariantTwo(42)));
 
-    println!("{}", cargo1);
-    println!("{}", cargo2);
-    println!("{}", cargo3);
-
-    process_cargo(cargo1);
-    process_cargo(cargo2);
-    process_cargo(cargo3);
+    match nested {
+        NestedEnum::Outer(outer) => match outer {
+            OuterEnum::Inner(inner) => match inner {
+                InnerEnum::VariantOne => println!("Matched VariantOne"),
+                InnerEnum::VariantTwo(value) => println!("Matched VariantTwo with value {}", value),
+            },
+        },
+    }
 }
