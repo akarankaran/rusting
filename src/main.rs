@@ -1,46 +1,57 @@
-use std::collections::HashMap;
+use std::fmt;
+
+#[derive(Debug)]
+enum Pattern {
+    Literal(char),
+    Wildcard,
+}
+
+struct Matcher {
+    pattern: Vec<Pattern>,
+}
+
+impl Matcher {
+    fn new(pattern_str: &str) -> Self {
+        let pattern = pattern_str.chars()
+            .map(|c| if c == '_' { Pattern::Wildcard } else { Pattern::Literal(c) })
+            .collect();
+        Matcher { pattern }
+    }
+
+    fn matches(&self, text: &str) -> bool {
+        let mut text_chars = text.chars().peekable();
+        for p in &self.pattern {
+            match p {
+                Pattern::Literal(c) => {
+                    if text_chars.next() != Some(*c) {
+                        return false;
+                    }
+                }
+                Pattern::Wildcard => {
+                    if let Some(&next) = text_chars.peek() {
+                        text_chars.next();
+                        if next == '_' {
+                            continue;
+                        }
+                    } else {
+                        return true;
+                    }
+                }
+            }
+        }
+        text_chars.count() == 0
+    }
+}
 
 fn main() {
-    let mut scores = HashMap::new();
-    scores.insert("Alice", 10);
-    scores.insert("Bob", 20);
-    scores.insert("Carol", 30);
+    let patterns = vec!["_a", "b_", "_c_", "d_ef", "h__llo"];
+    let texts = vec!["a", "b", "abc", "dgef", "hello", "hallo"];
 
-    let names = vec!["Alice", "Bob", "Carol", "Dave"];
-    for name in names {
-        match scores.get(name) {
-            Some(&score) => println!("{} scored {}", name, score),
-            None => println!("{} has no score", name),
+    for pattern_str in patterns {
+        let matcher = Matcher::new(pattern_str);
+        println!("Pattern: {}", pattern_str);
+        for text in &texts {
+            println!("Text: {}, Matches: {}", text, matcher.matches(text));
         }
-    }
-
-    let number = 30;
-    match number {
-        1 | 2 | 3 => println!("Small number"),
-        4..=10 => println!("Medium number"),
-        11..=100 => println!("Large number"),
-        _ => println!("Number out of range"),
-    }
-
-    let value = Some(7);
-    match value {
-        Some(0) => println!("Zero"),
-        Some(n) if n < 10 => println!("Single digit: {}", n),
-        Some(n) => println!("Double digit: {}", n),
-        None => println!("No value"),
-    }
-
-    let option = None;
-    match option {
-        Some(val) => println!("Value is: {}", val),
-        None => println!("No value present"),
-    }
-
-    let position = (1, 2);
-    match position {
-        (0, 0) => println!("At origin"),
-        (0, y) => println!("On Y axis at {}", y),
-        (x, 0) => println!("On X axis at {}", x),
-        (x, y) => println!("At position ({}, {})", x, y),
     }
 }
