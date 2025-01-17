@@ -1,53 +1,54 @@
-fn main() {
-    let vec_of_tuples = vec![
-        (1, "one"),
-        (2, "two"),
-        (3, "three"),
-        (4, "four"),
-        (5, "five"),
-    ];
+use std::fmt;
 
-    for (num, word) in vec_of_tuples {
-        println!("Number: {}, Word: {}", num, word);
+struct Point {
+    x: i32,
+    y: i32,
+}
+
+enum Shape {
+    Circle(Point, i32),
+    Rectangle(Point, Point),
+}
+
+fn display_shape(shape: &Shape) {
+    match shape {
+        Shape::Circle(center, radius) => {
+            println!("Circle at ({}, {}) with radius {}", center.x, center.y, radius);
+        }
+        Shape::Rectangle(top_left, bottom_right) => {
+            println!("Rectangle from ({}, {}) to ({}, {})", top_left.x, top_left.y, bottom_right.x, bottom_right.y);
+        }
     }
+}
 
-    let mixed_tuples = vec![
-        (1, "apple", true),
-        (2, "banana", false),
-        (3, "cherry", true),
-    ];
+fn main() {
+    let circle = Shape::Circle(Point { x: 1, y: 2 }, 5);
+    let rectangle = Shape::Rectangle(Point { x: 0, y: 0 }, Point { x: 10, y: 10 });
 
-    for (id, fruit, is_fruit) in mixed_tuples {
-        if is_fruit {
-            println!("ID: {}, Fruit: {}", id, fruit);
+    display_shape(&circle);
+    display_shape(&rectangle);
+
+    let numbers = vec![1, 2, 3, 4, 5];
+    for &num in &numbers {
+        match num {
+            n if n % 2 == 0 => println!("{} is even", n),
+            n => println!("{} is odd", n),
         }
     }
 
-    let nested_tuples = vec![
-        ((1, 2), "pair1"),
-        ((3, 4), "pair2"),
-    ];
-
-    for ((a, b), label) in nested_tuples {
-        println!("Tuple: ({}, {}), Label: {}", a, b, label);
+    let tuples = vec![(1, 2), (3, 4), (5, 6)];
+    for &(x, y) in &tuples {
+        match (x, y) {
+            (a, b) if a == b => println!("Tuple ({}, {}) has equal values", a, b),
+            (a, b) => println!("Tuple ({}, {}) has different values", a, b),
+        }
     }
 
-    let processed_tuples: Vec<(i32, String)> = vec![
-        (1, "first".to_string()),
-        (2, "second".to_string()),
-        (3, "third".to_string()),
-    ];
-
-    for (index, text) in processed_tuples.iter().enumerate() {
-        println!("Index: {}, Text: {}", index, text);
-    }
-
-    let transformed_tuples: Vec<(_, _)> = vec![
-        (1.5, "one point five"),
-        (2.5, "two point five"),
-    ];
-
-    for (num, description) in transformed_tuples.iter() {
-        println!("Float: {}, Description: {}", num, description);
+    let coordinates: Vec<Point> = vec![Point { x: 10, y: 20 }, Point { x: -5, y: 30 }];
+    for &Point { x, y } in &coordinates {
+        match (x, y) {
+            (x, y) if x > 0 && y > 0 => println!("Point ({}, {}) is in the first quadrant", x, y),
+            (x, y) => println!("Point ({}, {}) is not in the first quadrant", x, y),
+        }
     }
 }
