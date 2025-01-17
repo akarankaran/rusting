@@ -1,23 +1,27 @@
 use std::collections::HashSet;
 
 fn main() {
-    let input_vector = vec![1, 2, 2, 3, 4, 4, 5];
-    let unique_elements: HashSet<_> = input_vector.into_iter().collect();
-    let unique_vector: Vec<_> = unique_elements.into_iter().collect();
-    println!("{:?}", unique_vector);
-
-    let input_strings = vec!["apple", "banana", "apple", "orange"];
-    let unique_strings: HashSet<_> = input_strings.into_iter().collect();
-    let unique_strings_vector: Vec<_> = unique_strings.into_iter().collect();
-    println!("{:?}", unique_strings_vector);
-
-    let input_floats = vec![1.1, 2.2, 2.2, 3.3, 4.4];
-    let unique_floats: HashSet<_> = input_floats.into_iter().collect();
-    let unique_floats_vector: Vec<_> = unique_floats.into_iter().collect();
-    println!("{:?}", unique_floats_vector);
+    let set1: HashSet<i32> = [1, 2, 3, 4, 5].iter().cloned().collect();
+    let set2: HashSet<i32> = [3, 4, 5, 6, 7].iter().cloned().collect();
     
-    let input_mixed = vec!["rust", 1, 2.2, "rust", "go"];
-    let unique_mixed: HashSet<_> = input_mixed.into_iter().collect();
-    let unique_mixed_vector: Vec<_> = unique_mixed.into_iter().collect();
-    println!("{:?}", unique_mixed_vector);
+    let intersection: HashSet<_> = set1.intersection(&set2).collect();
+    println!("Intersection: {:?}", intersection);
+
+    let set3: HashSet<&str> = ["apple", "banana", "cherry"].iter().cloned().collect();
+    let set4: HashSet<&str> = ["banana", "kiwi", "mango"].iter().cloned().collect();
+    
+    let intersection_str: HashSet<_> = set3.intersection(&set4).collect();
+    println!("Intersection of strings: {:?}", intersection_str);
+
+    let set5: HashSet<f64> = [1.1, 2.2, 3.3].iter().cloned().collect();
+    let set6: HashSet<f64> = [2.2, 3.3, 4.4].iter().cloned().collect();
+    
+    let intersection_f64: HashSet<_> = set5.intersection(&set6).collect();
+    println!("Intersection of floats: {:?}", intersection_f64);
+
+    let set7: HashSet<String> = ["rust", "go", "python"].iter().map(|s| s.to_string()).collect();
+    let set8: HashSet<String> = ["python", "java", "rust"].iter().map(|s| s.to_string()).collect();
+    
+    let intersection_string: HashSet<_> = set7.intersection(&set8).collect();
+    println!("Intersection of String: {:?}", intersection_string);
 }
