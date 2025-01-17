@@ -1,32 +1,63 @@
-use std::io;
-
 fn main() {
-    let phone_number = get_input("Enter a phone number: ");
-    match validate_phone_number(&phone_number) {
-        Ok(_) => println!("Valid phone number."),
-        Err(err) => println!("Invalid phone number: {}", err),
+    #[derive(Debug)]
+    struct Person {
+        name: String,
+        age: u32,
     }
-}
 
-fn get_input(prompt: &str) -> String {
-    println!("{}", prompt);
-    let mut input = String::new();
-    io::stdin().read_line(&mut input).expect("Failed to read line.");
-    input.trim().to_string()
-}
-
-fn validate_phone_number(phone: &str) -> Result<(), String> {
-    match phone.len() {
-        10 => validate_length(phone),
-        7 => validate_length(phone),
-        _ => Err("Phone number must be 7 or 10 digits.".to_string()),
+    #[derive(Debug)]
+    struct Product {
+        id: u32,
+        name: String,
+        price: f64,
     }
-}
 
-fn validate_length(phone: &str) -> Result<(), String> {
-    if phone.chars().all(char::is_numeric) {
-        Ok(())
-    } else {
-        Err("Phone number must contain only digits.".to_string())
+    #[derive(Debug)]
+    struct Order {
+        product_id: u32,
+        quantity: u32,
+    }
+
+    let person = Person {
+        name: String::from("Alice"),
+        age: 30,
+    };
+
+    let product = Product {
+        id: 1,
+        name: String::from("Widget"),
+        price: 19.99,
+    };
+
+    let order = Order {
+        product_id: 1,
+        quantity: 3,
+    };
+
+    match person {
+        Person { name, age: 30 } if name == "Alice" => println!("Matched Alice, age 30"),
+        _ => println!("Person did not match"),
+    }
+
+    match product {
+        Product { id, price, .. } if price > 20.0 => println!("Expensive product with ID: {}", id),
+        Product { id, .. } => println!("Affordable product with ID: {}", id),
+    }
+
+    match order {
+        Order { product_id, quantity } if quantity > 5 => println!("Large order of product ID: {}", product_id),
+        Order { product_id, quantity } => println!("Order of {} units for product ID: {}", quantity, product_id),
+    }
+
+    let items: Vec<Person> = vec![
+        Person { name: String::from("Bob"), age: 25 },
+        Person { name: String::from("Charlie"), age: 30 },
+    ];
+
+    for item in items {
+        match item {
+            Person { name, age } if age < 30 => println!("Young person: {}", name),
+            Person { name, age } => println!("Adult person: {} (Age: {})", name, age),
+        }
     }
 }
