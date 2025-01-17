@@ -1,37 +1,23 @@
-use std::collections::VecDeque;
+use std::collections::HashSet;
 
 fn main() {
-    let mut deque: VecDeque<i32> = VecDeque::new();
+    let input_vector = vec![1, 2, 2, 3, 4, 4, 5];
+    let unique_elements: HashSet<_> = input_vector.into_iter().collect();
+    let unique_vector: Vec<_> = unique_elements.into_iter().collect();
+    println!("{:?}", unique_vector);
 
-    deque.push_back(1);
-    deque.push_back(2);
-    deque.push_back(3);
-    deque.push_front(0);
+    let input_strings = vec!["apple", "banana", "apple", "orange"];
+    let unique_strings: HashSet<_> = input_strings.into_iter().collect();
+    let unique_strings_vector: Vec<_> = unique_strings.into_iter().collect();
+    println!("{:?}", unique_strings_vector);
+
+    let input_floats = vec![1.1, 2.2, 2.2, 3.3, 4.4];
+    let unique_floats: HashSet<_> = input_floats.into_iter().collect();
+    let unique_floats_vector: Vec<_> = unique_floats.into_iter().collect();
+    println!("{:?}", unique_floats_vector);
     
-    println!("Deque after push operations: {:?}", deque);
-
-    let front = deque.pop_front().unwrap();
-    println!("Popped from front: {}", front);
-    println!("Deque after popping front: {:?}", deque);
-
-    let back = deque.pop_back().unwrap();
-    println!("Popped from back: {}", back);
-    println!("Deque after popping back: {:?}", deque);
-
-    deque.push_back(4);
-    deque.push_front(-1);
-    println!("Deque after more push operations: {:?}", deque);
-
-    let length = deque.len();
-    println!("Current length of deque: {}", length);
-
-    let is_empty = deque.is_empty();
-    println!("Is the deque empty? {}", is_empty);
-
-    for value in &deque {
-        println!("Value in deque: {}", value);
-    }
-
-    deque.clear();
-    println!("Deque after clear operation: {:?}", deque);
+    let input_mixed = vec!["rust", 1, 2.2, "rust", "go"];
+    let unique_mixed: HashSet<_> = input_mixed.into_iter().collect();
+    let unique_mixed_vector: Vec<_> = unique_mixed.into_iter().collect();
+    println!("{:?}", unique_mixed_vector);
 }
