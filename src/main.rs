@@ -1,52 +1,32 @@
-use std::fmt;
-
-enum NestedEnum {
-    Outer(OuterEnum),
-}
-
-enum OuterEnum {
-    Inner(InnerEnum),
-}
-
-enum InnerEnum {
-    VariantOne,
-    VariantTwo(i32),
-}
-
-impl fmt::Display for NestedEnum {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        match self {
-            NestedEnum::Outer(outer) => write!(f, "{}", outer),
-        }
-    }
-}
-
-impl fmt::Display for OuterEnum {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        match self {
-            OuterEnum::Inner(inner) => write!(f, "{}", inner),
-        }
-    }
-}
-
-impl fmt::Display for InnerEnum {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        match self {
-            InnerEnum::VariantOne => write!(f, "VariantOne"),
-            InnerEnum::VariantTwo(value) => write!(f, "VariantTwo with value {}", value),
-        }
-    }
-}
+use std::io;
 
 fn main() {
-    let nested = NestedEnum::Outer(OuterEnum::Inner(InnerEnum::VariantTwo(42)));
+    let phone_number = get_input("Enter a phone number: ");
+    match validate_phone_number(&phone_number) {
+        Ok(_) => println!("Valid phone number."),
+        Err(err) => println!("Invalid phone number: {}", err),
+    }
+}
 
-    match nested {
-        NestedEnum::Outer(outer) => match outer {
-            OuterEnum::Inner(inner) => match inner {
-                InnerEnum::VariantOne => println!("Matched VariantOne"),
-                InnerEnum::VariantTwo(value) => println!("Matched VariantTwo with value {}", value),
-            },
-        },
+fn get_input(prompt: &str) -> String {
+    println!("{}", prompt);
+    let mut input = String::new();
+    io::stdin().read_line(&mut input).expect("Failed to read line.");
+    input.trim().to_string()
+}
+
+fn validate_phone_number(phone: &str) -> Result<(), String> {
+    match phone.len() {
+        10 => validate_length(phone),
+        7 => validate_length(phone),
+        _ => Err("Phone number must be 7 or 10 digits.".to_string()),
+    }
+}
+
+fn validate_length(phone: &str) -> Result<(), String> {
+    if phone.chars().all(char::is_numeric) {
+        Ok(())
+    } else {
+        Err("Phone number must contain only digits.".to_string())
     }
 }
