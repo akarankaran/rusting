@@ -1,41 +1,46 @@
-use std::cmp::Ordering;
-
-enum Shape {
-    Circle(f64),
-    Rectangle(f64, f64),
-    Triangle(f64, f64, f64),
-}
+use std::collections::HashMap;
 
 fn main() {
-    let shapes = vec![
-        Shape::Circle(10.0),
-        Shape::Rectangle(5.0, 10.0),
-        Shape::Triangle(3.0, 4.0, 5.0),
-    ];
+    let mut scores = HashMap::new();
+    scores.insert("Alice", 10);
+    scores.insert("Bob", 20);
+    scores.insert("Carol", 30);
 
-    for shape in shapes {
-        match shape {
-            Shape::Circle(radius) if radius > 10.0 => println!("Large Circle with radius: {}", radius),
-            Shape::Circle(radius) => println!("Circle with radius: {}", radius),
-            Shape::Rectangle(width, height) if width == height => println!("Square with side: {}", width),
-            Shape::Rectangle(width, height) => println!("Rectangle with width: {} and height: {}", width, height),
-            Shape::Triangle(a, b, c) if a + b > c && a + c > b && b + c > a => println!("Triangle with sides: {}, {}, {}", a, b, c),
-            Shape::Triangle(_, _, _) => println!("Invalid Triangle"),
+    let names = vec!["Alice", "Bob", "Carol", "Dave"];
+    for name in names {
+        match scores.get(name) {
+            Some(&score) => println!("{} scored {}", name, score),
+            None => println!("{} has no score", name),
         }
     }
 
-    let number = 6;
+    let number = 30;
     match number {
-        n if n % 2 == 0 && n < 10 => println!("Even number less than 10: {}", n),
-        n if n % 2 == 0 => println!("Even number: {}", n),
-        n if n < 10 => println!("Odd number less than 10: {}", n),
-        n => println!("Number 10 or greater: {}", n),
+        1 | 2 | 3 => println!("Small number"),
+        4..=10 => println!("Medium number"),
+        11..=100 => println!("Large number"),
+        _ => println!("Number out of range"),
     }
 
-    let text = "hello";
-    match text {
-        text if text.len() < 5 => println!("Short text: {}", text),
-        text if text.len() >= 5 && text.len() < 10 => println!("Medium text: {}", text),
-        _ => println!("Long text: {}", text),
+    let value = Some(7);
+    match value {
+        Some(0) => println!("Zero"),
+        Some(n) if n < 10 => println!("Single digit: {}", n),
+        Some(n) => println!("Double digit: {}", n),
+        None => println!("No value"),
+    }
+
+    let option = None;
+    match option {
+        Some(val) => println!("Value is: {}", val),
+        None => println!("No value present"),
+    }
+
+    let position = (1, 2);
+    match position {
+        (0, 0) => println!("At origin"),
+        (0, y) => println!("On Y axis at {}", y),
+        (x, 0) => println!("On X axis at {}", x),
+        (x, y) => println!("At position ({}, {})", x, y),
     }
 }
