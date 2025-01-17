@@ -1,41 +1,65 @@
-use std::f64::consts::PI;
+use std::io::{self, Write};
 
-trait Shape {
-    fn area(&self) -> f64;
+enum Command {
+    Exit,
+    Greet(String),
+    Add(i32, i32),
+    Subtract(i32, i32),
+    Help,
 }
 
-struct Circle {
-    radius: f64,
-}
-
-struct Rectangle {
-    width: f64,
-    height: f64,
-}
-
-impl Shape for Circle {
-    fn area(&self) -> f64 {
-        PI * self.radius * self.radius
+fn parse_command(input: &str) -> Option<Command> {
+    let parts: Vec<&str> = input.trim().split_whitespace().collect();
+    match parts.as_slice() {
+        ["exit"] => Some(Command::Exit),
+        ["greet", name] => Some(Command::Greet(name.to_string())),
+        ["add", a, b] => {
+            if let (Ok(x), Ok(y)) = (a.parse(), b.parse()) {
+                Some(Command::Add(x, y))
+            } else {
+                None
+            }
+        }
+        ["subtract", a, b] => {
+            if let (Ok(x), Ok(y)) = (a.parse(), b.parse()) {
+                Some(Command::Subtract(x, y))
+            } else {
+                None
+            }
+        }
+        ["help"] => Some(Command::Help),
+        _ => None,
     }
-}
-
-impl Shape for Rectangle {
-    fn area(&self) -> f64 {
-        self.width * self.height
-    }
-}
-
-fn total_area(shapes: &[&dyn Shape]) -> f64 {
-    shapes.iter().map(|shape| shape.area()).sum()
 }
 
 fn main() {
-    let shapes: Vec<&dyn Shape> = vec![
-        &Circle { radius: 3.0 },
-        &Rectangle { width: 4.0, height: 5.0 },
-        &Circle { radius: 2.5 },
-    ];
-    
-    let area = total_area(&shapes);
-    println!("Total area: {}", area);
+    loop {
+        print!("> ");
+        io::stdout().flush().unwrap();
+
+        let mut input = String::new();
+        io::stdin().read_line(&mut input).unwrap();
+        
+        match parse_command(&input) {
+            Some(Command::Exit) => {
+                println!("Exiting...");
+                break;
+            }
+            Some(Command::Greet(name)) => {
+                println!("Hello, {}!", name);
+            }
+            Some(Command::Add(a, b)) => {
+                println!("Result: {}", a + b);
+            }
+            Some(Command::Subtract(a, b)) => {
+                println!("Result: {}", a - b);
+            }
+            Some(Command::Help) => {
+                println!("Available commands: exit, greet <name>, add <a> <b>, subtract <a> <b>, help");
+            }
+            None => {
+                println!("Unknown command. Type 'help' for available commands.");
+            }
+        }
+    }
 }
