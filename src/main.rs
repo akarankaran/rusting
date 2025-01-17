@@ -1,29 +1,36 @@
 use std::collections::HashMap;
 
 fn main() {
-    let mut map = HashMap::new();
-    map.insert("a", 1);
-    map.insert("b", 2);
-    map.insert("c", 3);
-    
-    let key_to_remove = "b";
-    map.remove(key_to_remove);
-    
-    for (key, value) in &map {
+    let mut scores = HashMap::new();
+    scores.insert("Alice", 50);
+    scores.insert("Bob", 30);
+    scores.insert("Charlie", 40);
+
+    for (key, value) in &scores {
         println!("{}: {}", key, value);
     }
 
-    let key_to_remove_2 = "d";
-    map.remove(key_to_remove_2);
+    let additional_scores = vec![
+        ("David", 20),
+        ("Eve", 60),
+    ];
 
-    let new_key = "e";
-    map.insert(new_key, 5);
-
-    map.retain(|&k, _| k != "a");
-
-    if let Some(value) = map.get("c") {
-        println!("Found value: {}", value);
+    for (key, value) in additional_scores {
+        scores.insert(key, value);
     }
 
-    map.clear();
+    for (key, value) in &scores {
+        println!("{}: {}", key, value);
+    }
+
+    let filtered_scores: Vec<_> = scores.iter()
+        .filter(|&(_, &v)| v > 40)
+        .collect();
+
+    for (key, value) in filtered_scores {
+        println!("{}: {}", key, value);
+    }
+
+    let total_score: i32 = scores.values().sum();
+    println!("Total Score: {}", total_score);
 }
