@@ -1,63 +1,47 @@
+use std::fs::File;
+use std::io::{self, Read};
+use std::num::ParseIntError;
+
+fn read_file_content(file_path: &str) -> Result<String, io::Error> {
+    let mut file = File::open(file_path)?;
+    let mut content = String::new();
+    file.read_to_string(&mut content)?;
+    Ok(content)
+}
+
+fn parse_integer(input: &str) -> Result<i32, ParseIntError> {
+    input.parse::<i32>()
+}
+
 fn main() {
-    #[derive(Debug)]
-    struct Person {
-        name: String,
-        age: u32,
+    match read_file_content("example.txt") {
+        Ok(content) => println!("File content: {}", content),
+        Err(e) => eprintln!("Error reading file: {}", e),
     }
 
-    #[derive(Debug)]
-    struct Product {
-        id: u32,
-        name: String,
-        price: f64,
+    let inputs = vec!["42", "not a number", "100"];
+
+    for input in inputs {
+        match parse_integer(input) {
+            Ok(num) => println!("Parsed number: {}", num),
+            Err(e) => eprintln!("Failed to parse '{}': {}", input, e),
+        }
     }
 
-    #[derive(Debug)]
-    struct Order {
-        product_id: u32,
-        quantity: u32,
-    }
-
-    let person = Person {
-        name: String::from("Alice"),
-        age: 30,
+    let division = |num: i32| -> Result<i32, &'static str> {
+        if num == 0 {
+            Err("Attempted to divide by zero")
+        } else {
+            Ok(42 / num)
+        }
     };
 
-    let product = Product {
-        id: 1,
-        name: String::from("Widget"),
-        price: 19.99,
-    };
+    let numbers = vec![2, 0, 7];
 
-    let order = Order {
-        product_id: 1,
-        quantity: 3,
-    };
-
-    match person {
-        Person { name, age: 30 } if name == "Alice" => println!("Matched Alice, age 30"),
-        _ => println!("Person did not match"),
-    }
-
-    match product {
-        Product { id, price, .. } if price > 20.0 => println!("Expensive product with ID: {}", id),
-        Product { id, .. } => println!("Affordable product with ID: {}", id),
-    }
-
-    match order {
-        Order { product_id, quantity } if quantity > 5 => println!("Large order of product ID: {}", product_id),
-        Order { product_id, quantity } => println!("Order of {} units for product ID: {}", quantity, product_id),
-    }
-
-    let items: Vec<Person> = vec![
-        Person { name: String::from("Bob"), age: 25 },
-        Person { name: String::from("Charlie"), age: 30 },
-    ];
-
-    for item in items {
-        match item {
-            Person { name, age } if age < 30 => println!("Young person: {}", name),
-            Person { name, age } => println!("Adult person: {} (Age: {})", name, age),
+    for number in numbers {
+        match division(number) {
+            Ok(result) => println!("Division result: {}", result),
+            Err(e) => eprintln!("Error: {}", e),
         }
     }
 }
