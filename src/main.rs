@@ -1,27 +1,19 @@
-use std::fmt;
-
-struct Point(i32, i32);
-
-impl fmt::Display for Point {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Point({}, {})", self.0, self.1)
-    }
-}
-
-trait Movable {
-    fn move_by(&mut self, x: i32, y: i32);
-}
-
-impl Movable for Point {
-    fn move_by(&mut self, x: i32, y: i32) {
-        self.0 += x;
-        self.1 += y;
-    }
+fn print_display<T: std::fmt::Display>(item: T) {
+    println!("{}", item);
 }
 
 fn main() {
-    let mut p = Point(1, 2);
-    println!("{}", p);
-    p.move_by(3, 4);
-    println!("{}", p);
+    let number = 42;
+    let text = "Hello, Rust!";
+    let float = 3.14;
+
+    print_display(number);
+    print_display(text);
+    print_display(float);
+
+    let vec = vec![1, 2, 3];
+    print_display(vec.iter().map(|x| x.to_string()).collect::<Vec<_>>().join(", "));
+
+    let tuple = (1, "tuple", 3.0);
+    print_display(format!("{:?}", tuple));
 }
