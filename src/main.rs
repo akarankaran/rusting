@@ -1,32 +1,41 @@
-use std::fmt;
+use std::fmt::Display;
 
-trait Description {
-    fn describe(&self) -> String;
+trait Summary {
+    type ItemType;
+    fn summarize(&self) -> Self::ItemType;
 }
 
-enum Vehicle {
-    Car(String),
-    Truck(String),
-    Motorcycle(String),
+struct NewsArticle {
+    headline: String,
+    content: String,
 }
 
-impl Description for Vehicle {
-    fn describe(&self) -> String {
-        match self {
-            Vehicle::Car(name) => format!("This is a car named: {}", name),
-            Vehicle::Truck(name) => format!("This is a truck named: {}", name),
-            Vehicle::Motorcycle(name) => format!("This is a motorcycle named: {}", name),
-        }
+impl Summary for NewsArticle {
+    type ItemType = String;
+    fn summarize(&self) -> Self::ItemType {
+        format!("{}: {}", self.headline, self.content)
+    }
+}
+
+struct Number {
+    value: i32,
+}
+
+impl Summary for Number {
+    type ItemType = String;
+    fn summarize(&self) -> Self::ItemType {
+        format!("Number is: {}", self.value)
     }
 }
 
 fn main() {
-    let my_vehicle = Vehicle::Car(String::from("Toyota"));
-    println!("{}", my_vehicle.describe());
+    let article = NewsArticle {
+        headline: String::from("Rust 2023 is here!"),
+        content: String::from("New features are introduced."),
+    };
 
-    let my_truck = Vehicle::Truck(String::from("Ford"));
-    println!("{}", my_truck.describe());
+    let number = Number { value: 42 };
 
-    let my_motorcycle = Vehicle::Motorcycle(String::from("Harley"));
-    println!("{}", my_motorcycle.describe());
+    println!("{}", article.summarize());
+    println!("{}", number.summarize());
 }
