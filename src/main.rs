@@ -1,48 +1,37 @@
 use std::fmt;
 
-trait Vehicle {
-    fn drive(&self);
+trait TraitExample {
+    fn by_value(self);
+    fn by_reference(&self);
+    fn by_mut(self: &mut Self);
 }
 
-trait Cargo: Vehicle {
-    fn load(&self);
+struct ExampleStruct {
+    value: i32,
 }
 
-struct Truck;
-
-impl Vehicle for Truck {
-    fn drive(&self) {
-        println!("The truck is driving.");
+impl TraitExample for ExampleStruct {
+    fn by_value(self) {
+        println!("By value: {}", self.value);
     }
-}
 
-impl Cargo for Truck {
-    fn load(&self) {
-        println!("The cargo is loaded onto the truck.");
+    fn by_reference(&self) {
+        println!("By reference: {}", self.value);
     }
-}
 
-struct Boat;
-
-impl Vehicle for Boat {
-    fn drive(&self) {
-        println!("The boat is sailing.");
-    }
-}
-
-impl Cargo for Boat {
-    fn load(&self) {
-        println!("The cargo is loaded onto the boat.");
+    fn by_mut(self: &mut Self) {
+        self.value += 1;
+        println!("By mutable reference: {}", self.value);
     }
 }
 
 fn main() {
-    let my_truck = Truck;
-    let my_boat = Boat;
+    let example = ExampleStruct { value: 10 };
 
-    my_truck.drive();
-    my_truck.load();
+    example.by_reference();
 
-    my_boat.drive();
-    my_boat.load();
+    let mut mutable_example = ExampleStruct { value: 20 };
+    mutable_example.by_mut();
+
+    mutable_example.by_value();
 }
