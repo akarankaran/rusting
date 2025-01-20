@@ -1,28 +1,58 @@
-use std::fmt::Debug;
+use std::fmt;
 
-trait Printable {
-    fn print(&self);
-    
-    fn print_debug(&self) where Self: Debug {
-        println!("{:?}", self);
+trait Speak {
+    fn speak(&self) -> String;
+}
+
+struct Dog {
+    name: String,
+}
+
+impl Speak for Dog {
+    fn speak(&self) -> String {
+        format!("{} says: Woof!", self.name)
     }
 }
 
-struct Data<T> {
-    value: T,
+struct Cat {
+    name: String,
 }
 
-impl<T: Debug> Printable for Data<T> {
-    fn print(&self) {
-        println!("Value: {:?}", self.value);
-        self.print_debug();
+impl Speak for Cat {
+    fn speak(&self) -> String {
+        format!("{} says: Meow!", self.name)
+    }
+}
+
+struct Cow {
+    name: String,
+}
+
+impl Speak for Cow {
+    fn speak(&self) -> String {
+        format!("{} says: Moo!", self.name)
+    }
+}
+
+struct Parrot {
+    name: String,
+}
+
+impl Speak for Parrot {
+    fn speak(&self) -> String {
+        format!("{} says: Squawk!", self.name)
     }
 }
 
 fn main() {
-    let data = Data { value: 42 };
-    data.print();
-    
-    let text_data = Data { value: "Hello, Rust!" };
-    text_data.print();
+    let dog = Dog { name: String::from("Rex") };
+    let cat = Cat { name: String::from("Whiskers") };
+    let cow = Cow { name: String::from("Bessie") };
+    let parrot = Parrot { name: String::from("Polly") };
+
+    let animals: Vec<&dyn Speak> = vec![&dog, &cat, &cow, &parrot];
+
+    for animal in animals {
+        println!("{}", animal.speak());
+    }
 }
