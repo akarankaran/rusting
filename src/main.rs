@@ -1,58 +1,27 @@
 use std::fmt;
 
-trait Speak {
-    fn speak(&self) -> String;
-}
+struct Point(i32, i32);
 
-struct Dog {
-    name: String,
-}
-
-impl Speak for Dog {
-    fn speak(&self) -> String {
-        format!("{} says: Woof!", self.name)
+impl fmt::Display for Point {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Point({}, {})", self.0, self.1)
     }
 }
 
-struct Cat {
-    name: String,
+trait Movable {
+    fn move_by(&mut self, x: i32, y: i32);
 }
 
-impl Speak for Cat {
-    fn speak(&self) -> String {
-        format!("{} says: Meow!", self.name)
-    }
-}
-
-struct Cow {
-    name: String,
-}
-
-impl Speak for Cow {
-    fn speak(&self) -> String {
-        format!("{} says: Moo!", self.name)
-    }
-}
-
-struct Parrot {
-    name: String,
-}
-
-impl Speak for Parrot {
-    fn speak(&self) -> String {
-        format!("{} says: Squawk!", self.name)
+impl Movable for Point {
+    fn move_by(&mut self, x: i32, y: i32) {
+        self.0 += x;
+        self.1 += y;
     }
 }
 
 fn main() {
-    let dog = Dog { name: String::from("Rex") };
-    let cat = Cat { name: String::from("Whiskers") };
-    let cow = Cow { name: String::from("Bessie") };
-    let parrot = Parrot { name: String::from("Polly") };
-
-    let animals: Vec<&dyn Speak> = vec![&dog, &cat, &cow, &parrot];
-
-    for animal in animals {
-        println!("{}", animal.speak());
-    }
+    let mut p = Point(1, 2);
+    println!("{}", p);
+    p.move_by(3, 4);
+    println!("{}", p);
 }
