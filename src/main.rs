@@ -1,34 +1,28 @@
-use std::f64::consts::PI;
+use std::fmt::Debug;
 
-trait Area {
-    fn calculate_area(&self) -> f64;
-}
-
-struct Circle {
-    radius: f64,
-}
-
-impl Area for Circle {
-    fn calculate_area(&self) -> f64 {
-        PI * self.radius * self.radius
+trait Printable {
+    fn print(&self);
+    
+    fn print_debug(&self) where Self: Debug {
+        println!("{:?}", self);
     }
 }
 
-struct Rectangle {
-    width: f64,
-    height: f64,
+struct Data<T> {
+    value: T,
 }
 
-impl Area for Rectangle {
-    fn calculate_area(&self) -> f64 {
-        self.width * self.height
+impl<T: Debug> Printable for Data<T> {
+    fn print(&self) {
+        println!("Value: {:?}", self.value);
+        self.print_debug();
     }
 }
 
 fn main() {
-    let circle = Circle { radius: 5.0 };
-    let rectangle = Rectangle { width: 4.0, height: 6.0 };
-
-    println!("Circle area: {}", circle.calculate_area());
-    println!("Rectangle area: {}", rectangle.calculate_area());
+    let data = Data { value: 42 };
+    data.print();
+    
+    let text_data = Data { value: "Hello, Rust!" };
+    text_data.print();
 }
