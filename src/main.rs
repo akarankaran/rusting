@@ -1,19 +1,32 @@
-fn print_display<T: std::fmt::Display>(item: T) {
-    println!("{}", item);
+use std::fmt;
+
+trait Description {
+    fn describe(&self) -> String;
+}
+
+enum Vehicle {
+    Car(String),
+    Truck(String),
+    Motorcycle(String),
+}
+
+impl Description for Vehicle {
+    fn describe(&self) -> String {
+        match self {
+            Vehicle::Car(name) => format!("This is a car named: {}", name),
+            Vehicle::Truck(name) => format!("This is a truck named: {}", name),
+            Vehicle::Motorcycle(name) => format!("This is a motorcycle named: {}", name),
+        }
+    }
 }
 
 fn main() {
-    let number = 42;
-    let text = "Hello, Rust!";
-    let float = 3.14;
+    let my_vehicle = Vehicle::Car(String::from("Toyota"));
+    println!("{}", my_vehicle.describe());
 
-    print_display(number);
-    print_display(text);
-    print_display(float);
+    let my_truck = Vehicle::Truck(String::from("Ford"));
+    println!("{}", my_truck.describe());
 
-    let vec = vec![1, 2, 3];
-    print_display(vec.iter().map(|x| x.to_string()).collect::<Vec<_>>().join(", "));
-
-    let tuple = (1, "tuple", 3.0);
-    print_display(format!("{:?}", tuple));
+    let my_motorcycle = Vehicle::Motorcycle(String::from("Harley"));
+    println!("{}", my_motorcycle.describe());
 }
