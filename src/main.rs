@@ -1,32 +1,34 @@
-use std::fmt;
+use std::f64::consts::PI;
 
-trait Printable {
-    fn print(&self);
+trait Area {
+    fn calculate_area(&self) -> f64;
 }
 
-struct Person {
-    name: String,
-    age: u32,
+struct Circle {
+    radius: f64,
 }
 
-impl Printable for Person {
-    fn print(&self) {
-        println!("Name: {}, Age: {}", self.name, self.age);
+impl Area for Circle {
+    fn calculate_area(&self) -> f64 {
+        PI * self.radius * self.radius
+    }
+}
+
+struct Rectangle {
+    width: f64,
+    height: f64,
+}
+
+impl Area for Rectangle {
+    fn calculate_area(&self) -> f64 {
+        self.width * self.height
     }
 }
 
 fn main() {
-    let person = Person {
-        name: String::from("Alice"),
-        age: 30,
-    };
+    let circle = Circle { radius: 5.0 };
+    let rectangle = Rectangle { width: 4.0, height: 6.0 };
 
-    person.print();
-    
-    let another_person = Person {
-        name: String::from("Bob"),
-        age: 25,
-    };
-
-    another_person.print();    
+    println!("Circle area: {}", circle.calculate_area());
+    println!("Rectangle area: {}", rectangle.calculate_area());
 }
